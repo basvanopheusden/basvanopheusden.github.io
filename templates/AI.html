@@ -1,0 +1,56 @@
+{% extends "gamebase.html" %}
+{% block title %}AI{% end %}
+{% block headertext %}Welcome!{% end %}
+
+{% block modals %}
+    {% include "modals/block-modal.html" %}
+    {% include "modals/feedback-modal.html" %}
+    {% include 'modals/end-modal.html' %}
+{% end %}
+
+{% block block_modal_body %}{% include 'instructions/AI_instructions.html' %}{% end %}
+
+{% block canvas %}
+
+    <div class='row _blank_'></div>
+    <div class="row">
+        <div class="container-fluid col-xs-8 col-xs-offset-2 canvas-container">
+            <div class="canvas"></div>
+        </div>
+    </div>
+
+    <audio id='move-sound'>
+        <source id='move-sound-source' src='static/media/audio/stone3.ogg' type='audio/ogg'>
+    </audio>
+
+{% end %}
+
+
+
+{% block scripts %}
+
+    <script src="static/js/util.js"></script>
+    <script src="static/js/io.js"></script>
+    <script src="static/js/instructions.js"></script>
+    <script src="static/js/params.js"></script>
+    <script src="static/js/game.js"></script>
+    <script src="static/js/conditions/AI.js"></script>
+    <script>
+        // init experiment
+        var blocks, player;
+        player = new Player();
+        blocks = [new Condition_AI(60)];
+
+        // launch
+        $(document).ready(function() {
+            current_block = 0;
+            board = new Board();
+            board.create_tiles()
+            player.initials = Date.now();
+            track_mouse(player);
+            blocks = [new Condition_AI(60)];
+            blocks[current_block].run_block()
+        });
+    </script>
+
+{% end %}
