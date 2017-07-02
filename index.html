@@ -1,3 +1,4 @@
+<<<<<<< 8ac68c58f37b30f82be24033fe2bbbcbf2998dfe
 <<<<<<< 2cb5302179e4e6651b17f92c1f40fbf32b84cbec
 <html>
 <header><title>This is a title</title></header>
@@ -7,11 +8,44 @@ Hello world
 </html>
 =======
 {% extends "templates/gamebase.html" %}
+=======
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset = "utf-8">
+	<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="">
+	<meta name="author" content="Ma Lab">
+	<title>AI</title>
+>>>>>>> 6a1546b4c29337e3ff096ab57bf7ae790749c2cd
 
-{% block title %}Welcome!{% end %}
+	<script src="static/js/lib/jquery-2.2.4.min.js"></script>
+	<script src="static/js/lib/jquery-ui.min.js"></script>
+	<script src="static/js/lib/bootstrap.min.js"></script>
+	<script src="static/js/lib/underscore-min.js"></script>
 
-{% block headertext %}Welcome!{% end %}
+	<script src="static/js/util.js"></script>
+	<script src="static/js/io.js"></script>
+	<script src="static/js/instructions.js"></script>
+	<script src="static/js/game.js"></script>
+	<script src="static/js/conditions/AI.js"></script>
+	<script>
+	var blocks, player;
+		player = new Player();
+		blocks = [new Condition_AI(60)];
+	
+		$(document).ready(function() {
+			current_block = 0;
+			board = new Board();
+			board.create_tiles()
+			player.initials = Date.now();
+			blocks = [new Condition_AI(60)];
+			blocks[current_block].run_block()
+		});
+	</script>
 
+<<<<<<< 8ac68c58f37b30f82be24033fe2bbbcbf2998dfe
 {% block content %}
     <div class='row'>
         <div class='col-xs-4 col-xs-offset-4'>
@@ -25,3 +59,57 @@ Hello world
     </div>
 {% end %}
 >>>>>>> 75b63d5f226071925e3fa181e2f5b5f0328fe8b2
+=======
+	<link href = "static/css/lib/bootstrap.min.css" rel = "stylesheet">
+	<link href = 'static/css/stylesheet.css' rel='stylesheet'>
+
+
+	</head>
+	<body>
+
+		<div class="modal fade" id="feedback-modal" data-backdrop="static" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h2 class="modal-title">Good game!</h2>
+						<div class='row'>
+							<div class='col-xs-10 col-xs-offset-1 text-center' id='scorebox'>
+								<div id='p0-score' class='col-xs-6 text-center'>
+									<h4>You:</h4>
+									<h2>0</h2>
+								</div>
+								<div id='p1-score' class='col-xs-6 text-center'>
+									<h4>Computer:</h4>
+									<h2>0</h2>
+								</div>
+							</div>
+						</div>
+					<button class="btn btn-large btn-warning" id="next-trial">Play Again</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='container-fluid'>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class='row'>
+				<div class='col-xs-8 col-xs-offset-2 text-center'>
+					<h1 class='headertext'>Welcome!</h1>
+				</div>
+			</div>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class="row">
+				<div class="container-fluid col-xs-8 col-xs-offset-2 canvas-container">
+					<div class="canvas"></div>
+				</div>
+			</div>
+			<audio id='move-sound'>
+				<source id='move-sound-source' src='static/media/audio/stone3.ogg' type='audio/ogg'>
+			</audio>
+		</div>
+	</body>
+</html>
+>>>>>>> 6a1546b4c29337e3ff096ab57bf7ae790749c2cd
