@@ -3,21 +3,14 @@ function Condition_AI() {
     var that = this;
     this.p = player;
 		
-	this.choose_opponent_move = Module.cwrap('makemove', 'number', ['number','number','number','number'])
-	
-	this.arraytouint64 = function(array){
-		var s=0
-		for(var i=0;i<36;i++)
-			s+=Math.pow(2,i)*array[i]
-		return s
-	}
+	this.makemove = Module.cwrap('makemove', 'number', ['number','string','string','number'])
 	
     this.opponent_move = function() {
 		that.b.game_status = 'playing';
-		var bp=that.arraytouint64(that.b.black_position)
-		var wp=that.arraytouint64(that.b.white_position)
-		console.log(bp,wp)
-        that.b.last_move = that.choose_opponent_move(Date.now(),bp,wp,that.p.opponent_color);
+		var bp=that.b.black_position.join("")
+		var wp=that.b.white_position.join("")
+		console.log('js',bp,wp)
+        that.b.last_move = that.makemove(Date.now(),bp,wp,that.p.opponent_color);
 		console.log(that.b.last_move)
 		if (that.b.game_status != 'ready') {
             that.b.add_piece(that.b.last_move, that.p.opponent_color);

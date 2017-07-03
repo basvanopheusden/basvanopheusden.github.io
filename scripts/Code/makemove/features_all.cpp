@@ -7,11 +7,11 @@ Nfeatures(0), D0(6.0), K0(5.0), gamma(0.025), delta(0.2), lapse_rate(0.01), opp_
 	update();
 }
 #else
-heuristic::heuristic(): Nfeatures(731), stopping_thresh(7), pruning_thresh(5),
-gamma(0.01) ,lapse_rate(0.01), opp_scale(1),
-w_act{0.8,0.2,3.5,6,0.8,0.2,3.5,6,0.8,0.2,3.5,6,0.8,0.2,3.5,6,0},
-w_pass{0.8,0.2,3.5,6,0.8,0.2,3.5,6,0.8,0.2,3.5,6,0.8,0.2,3.5,6,0},
-delta{0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2,0.2},
+heuristic::heuristic(): Nfeatures(731), stopping_thresh(10000.0), pruning_thresh(4.7651),
+gamma(0.001) ,lapse_rate(0.02768), opp_scale(1),center_weight(0.88889),
+w_act{0.90129,0.3,2.5,20,0.90129,0.3,2.5,20,0.90129,0.3,2.5,20,0.90129,0.3,2.5,20,0},
+w_pass{1.0515,0.35,2.9166,23.333,1.0515,0.35,2.9166,23.333,1.0515,0.35,2.9166,23.333,1.0515,0.35,2.9166,23.333,0},
+delta{0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1},
 feature{{0x3ULL,0xcULL,2,w_act,w_pass,delta,0},
 {0x600ULL,0x1800ULL,2,w_act,w_pass,delta,0},
 {0xc0000ULL,0x300000ULL,2,w_act,w_pass,delta,0},

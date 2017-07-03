@@ -75,6 +75,10 @@ inline uint64 tilestringtouint64(string s){
   return m<<(4*BOARD_WIDTH-tile-1);
 }
 
+inline uint64 binstringtouint64(char* s){
+  return strtoull(s,NULL,2);
+}
+
 inline uint64 binstringtouint64(string s){
   return strtoull(s.c_str(),NULL,2);
 }
