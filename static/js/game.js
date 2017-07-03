@@ -138,24 +138,12 @@ function Board() {
 		that.game_status = status;
 		if(that.game_status != "playing") {
 			$(".tile").off('click').off('mouseenter').off('mouseleave');
-			if(Date.now() < blocks[current_block].end_time){
-				$('.indicator').html("<h1>Game over!</h1>");
-				setTimeout(function() {
-					$('#feedback-modal').modal('show');
-					$("html").css("cursor","default");
-				}, 500)
-				that.show_win(col, array);
-			} else {
-				$('.indicator').html("<h1>Game over!</h1>");
-				that.show_win(col, array);
-				current_block += 1;
-				player.game_index ++;
-				if (current_block < blocks.length){
-					setTimeout(blocks[current_block].run_block, 1000);
-				} else {
-					$('#end-modal').modal('show');
-				}
-			}
+			$('.indicator').html("<h1>Game over!</h1>");
+			setTimeout(function() {
+				$('#feedback-modal').modal('show');
+				$("html").css("cursor","default");
+			}, 500)
+			that.show_win(col, array);
 		}
 	}
 
