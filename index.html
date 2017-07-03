@@ -14,22 +14,27 @@
 	<script src="static/js/lib/underscore-min.js"></script>
 
 	<script src="static/js/util.js"></script>
-	<script src="static/js/io.js"></script>
-	<script src="static/js/instructions.js"></script>
 	<script src="static/js/game.js"></script>
 	<script src="static/js/conditions/AI.js"></script>
-	<script>
-	var blocks, player;
-		player = new Player();
-		blocks = [new Condition_AI(60)];
+	<script src="static/js/game.js"></script>
+	<script src="scripts/Code/makemove/makemove.js"></script>
 	
+	<script>
+		var blocks, player;
+		M=9;
+		N=4;
+		K=4;
+		blocks = [new Condition_AI(60)];
+
+		
 		$(document).ready(function() {
 			current_block = 0;
+			player = new Player();
+
 			board = new Board();
 			board.create_tiles()
-			player.initials = Date.now();
 			blocks = [new Condition_AI(60)];
-			blocks[current_block].run_block()
+			blocks[current_block].run()
 		});
 	</script>
 

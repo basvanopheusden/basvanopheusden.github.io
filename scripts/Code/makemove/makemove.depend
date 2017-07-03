@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1499020648 source:d:\bas\github pages\scripts\code\makemove\bfs.cpp
+	"bfs.h"
+	"heuristic.h"
+
+1499019310 d:\bas\github pages\scripts\code\makemove\bfs.h
+	"board.h"
+	<vector>
+	<fstream>
+	<random>
+
+1457411688 d:\bas\github pages\scripts\code\makemove\board.h
+	<iostream>
+	<cstdlib>
+	<fstream>
+	<cstdint>
+
+1499019501 d:\bas\github pages\scripts\code\makemove\heuristic.h
+	"board.h"
+	<random>
+	<vector>
+	<map>
+
+1462751030 source:d:\bas\github pages\scripts\code\makemove\features_all.cpp
+	"board.h"
+	"heuristic.h"
+
+1499020307 source:d:\bas\github pages\scripts\code\makemove\heuristic.cpp
+	"heuristic.h"
+	<iostream>
+	<fstream>
+	<algorithm>
+	<map>
+	<iomanip>
+
+1499021071 source:d:\bas\github pages\scripts\code\makemove\main.cpp
+	"board.h"
+	"heuristic.h"
+	"bfs.h"
+	<ctime>
+
