@@ -12,8 +12,8 @@
 	
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/mootools/1.2.4/mootools-yui-compressed.js"></script>
     <script type="text/javascript">
-        $.ajax({ url: "http://basvanopheusden.github.com/data/textbestand.txt", success: function(file_content) {
-				console.log(file_content);
+        $.ajax({ url: "https://basvanopheusden.github.io/data/games.csv", success: function(file_content) {
+				$('#text').text(file_content);
 			}
 		});
     </script>
