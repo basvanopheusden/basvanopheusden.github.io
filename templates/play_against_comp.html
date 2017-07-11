@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset = "utf-8">
+	<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="">
+	<meta name="author" content="Ma Lab">
+	<title>AI</title>
+
+	<script src="../static/js/lib/jquery-2.2.4.min.js"></script>
+	<script src="../static/js/lib/jquery-ui.min.js"></script>
+	<script src="../static/js/lib/bootstrap.min.js"></script>
+	<script src="../static/js/lib/underscore-min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script src="../static/js/util.js"></script>
+	<script src="../static/js/game.js"></script>
+	<script src="../static/js/AI.js"></script>
+	<script src="../static/scripts/Code/makemove.js"></script>
+	
+	<script>
+		var blocks, player;
+		M=9;
+		N=4;
+		K=4;
+		
+		$(document).ready(function() {
+			current_block = 0;
+			player = new Player();
+
+			board = new Board();
+			board.create_tiles()
+			blocks = [new Condition_AI(60)];
+			blocks[current_block].run()
+		});
+	</script>
+
+	<link href = "../static/css/lib/bootstrap.min.css" rel = "stylesheet">
+	<link href = '../static/css/stylesheet.css' rel='stylesheet'>
+
+
+	</head>
+	<body>
+
+		<div class="modal fade" id="feedback-modal" data-backdrop="static" role="dialog" aria-labelledby="" aria-hidden="true">
+			<div class="modal-dialog modal-sm">
+				<div class="modal-content">
+					<div class="modal-body">
+						<h2 class="modal-title">Good game!</h2>
+						<div class='row'>
+							<div class='col-xs-10 col-xs-offset-1 text-center' id='scorebox'>
+								<div id='p0-score' class='col-xs-6 text-center'>
+									<h4>You:</h4>
+									<h2>0</h2>
+								</div>
+								<div id='p1-score' class='col-xs-6 text-center'>
+									<h4>Computer:</h4>
+									<h2>0</h2>
+								</div>
+							</div>
+						</div>
+					<button class="btn btn-large btn-warning" id="next-trial">Play Again</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class='container-fluid'>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class='row'>
+				<div class='col-xs-8 col-xs-offset-2 text-center'>
+					<h1 class='headertext'>Welcome!</h1>
+				</div>
+			</div>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class="row">
+				<div class="container-fluid col-xs-8 col-xs-offset-2 canvas-container">
+					<div class="canvas"></div>
+				</div>
+			</div>
+			<audio id='move-sound'>
+				<source id='move-sound-source' src='static/media/audio/stone3.ogg' type='audio/ogg'>
+			</audio>
+		</div>
+	</body>
+</html>
