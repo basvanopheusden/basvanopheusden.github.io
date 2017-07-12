@@ -2,6 +2,18 @@ var is_paused = 1;
 var game_data;
 timer = null;
 
+function start(){
+	$(document).on('keydown', function(e){keypress_handler(e)});
+	select_random_board()
+}
+
+function select_random_board(){
+	player = Math.floor((Math.random() * game_data.length) + 1);
+	gi = Math.floor((Math.random() * game_data[player].length) + 1);
+	mi = Math.floor((Math.random() * game_data[player][gi].length) + 1);
+	load_state()
+}
+
 function keypress_handler(e){
 	if(e.keyCode == 32){
 		btn_press_play()
@@ -18,24 +30,23 @@ function load_game_data(){
 	var filename = "https://basvanopheusden.github.io/data/games.json"
 	$.getJSON(filename, function(response) {
 		game_data = response
-		$(document).on('keydown', function(e){keypress_handler(e)});
-		load_state()
+		start()
 	});
 }
 
 function process_name(n){
 	if(n >= 1000){
-		return "computer #" + (n-999).toString()
+		return "computer " + (n-999).toString()
 	}
 	else {
-		return "participant #" + (n+1).toString()
+		return "participant " + (n+1).toString()
 	}
 }
 
 function show_game_info(){
 	var color = game_data[player][gi][mi][0]
-	var blackplayer = process_name(game_data[player][gi][0][5])
-	var whiteplayer = process_name(game_data[player][gi][1][5])
+	var blackplayer = process_name(game_data[player][gi][0][4])
+	var whiteplayer = process_name(game_data[player][gi][1][4])
 	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer+ ", Move " + (mi+1).toString())
 }
 
