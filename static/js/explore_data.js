@@ -23,17 +23,20 @@ function load_game_data(){
 	});
 }
 
-function show_game_info(){
-	var color = game_data[player][gi][mi][0]
-	var blackplayer,whiteplayer;
-	if(color == 0){
-		blackplayer = player;
+function process_name(n){
+	if(n >= 1000){
+		return "computer #" + (n-999).toString()
 	}
 	else {
-		
-	}	
-	$('.headertext').text("White: " + (player+1).toString() + 
-	", Game " + (gi+1).toString() + ", Move " + (mi+1).toString())
+		return "participant #" + (n+1).toString()
+	}
+}
+
+function show_game_info(){
+	var color = game_data[player][gi][mi][0]
+	var blackplayer = process_name(game_data[player][gi][0][5])
+	var whiteplayer = process_name(game_data[player][gi][1][5])
+	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer+ ", Move " + (mi+1).toString())
 }
 
 function btn_press_play() {
@@ -149,7 +152,7 @@ function make_json(){
 	y=[]
 	z=[]
 	for(var i=0;i<game_data.length-1;i++){
-		var p = game_data[i].split(",")[0]
+		var p = parseInt(game_data[i].split(",")[0])
 		var wp = game_data[i].split(",")[3]
 		var bp = game_data[i].split(",")[2]
 		var color = parseInt(game_data[i].split(",")[1])
