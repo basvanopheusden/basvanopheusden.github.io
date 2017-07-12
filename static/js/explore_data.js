@@ -24,7 +24,15 @@ function load_game_data(){
 }
 
 function show_game_info(){
-	$('.headertext').text("Player " + (player+1).toString() + 
+	var color = game_data[player][gi][mi][0]
+	var blackplayer,whiteplayer;
+	if(color == 0){
+		blackplayer = player;
+	}
+	else {
+		
+	}	
+	$('.headertext').text("White: " + (player+1).toString() + 
 	", Game " + (gi+1).toString() + ", Move " + (mi+1).toString())
 }
 
@@ -131,26 +139,8 @@ function load_game_data_old(){
 	var filename = "https://basvanopheusden.github.io/data/games.csv"
 	$.get(filename, function(response) {
 		game_data = response.split("\n");
-		load_state_old();
 		make_json();
 	});
-}
-
-function load_state_old(){
-	var bp = game_data[n].split(",")[2]
-	var wp = game_data[n].split(",")[3]
-	var color = parseInt(game_data[n].split(",")[1])
-	var move = parseInt(game_data[n].split(",")[4])
-	for(var i=0; i<M*N; i++){
-		if(bp[i]=='1'){
-			board.add_piece(i, 0);
-		}
-		if(wp[i]=='1'){
-			board.add_piece(i, 1);
-		}
-	}
-	board.add_piece(move,color);
-	board.show_last_move(move, color);
 }
 
 function make_json(){
@@ -174,7 +164,7 @@ function make_json(){
 			y.push(z)
 			z=[]
 		}
-		z.push([color,bp,wp,move])
+		z.push([color,bp,wp,move,p])
 	}
 	x.push(y)
 	console.log(x.length)
