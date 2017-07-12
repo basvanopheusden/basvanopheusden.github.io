@@ -7,10 +7,9 @@ function start(){
 	select_random_board()
 }
 
-function select_random_board(){
+function select_random_trial(){
 	player = Math.floor((Math.random() * game_data.length) + 1);
-	gi = Math.floor((Math.random() * game_data[player].length) + 1);
-	mi = Math.floor((Math.random() * game_data[player][gi].length) + 1);
+	ti = Math.floor((Math.random() * game_data[player].length) + 1);
 	load_state()
 }
 
@@ -26,8 +25,8 @@ function keypress_handler(e){
 	}
 }
 
-function load_game_data(){
-	var filename = "https://basvanopheusden.github.io/data/games.json"
+function load_data(){
+	var filename = "https://basvanopheusden.github.io/data/2afc.json"
 	$.getJSON(filename, function(response) {
 		game_data = response
 		start()
@@ -36,18 +35,19 @@ function load_game_data(){
 
 function process_name(n){
 	if(n >= 1000){
-		return "computer " + (n-999).toString()
+		return "Computer " + (n-999).toString()
 	}
 	else {
-		return "participant " + (n+1).toString()
+		return "Participant " + (n+1).toString()
 	}
 }
 
-function show_game_info(){
-	var color = game_data[player][gi][mi][0]
+function show_trial_info(){
+	var color = game_data[player][gi][0]
 	var blackplayer = process_name(game_data[player][gi][0][4])
 	var whiteplayer = process_name(game_data[player][gi][1][4])
-	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer+ ", Move " + (mi+1).toString())
+	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer)
+	$('.headertext2').text("Move " + (mi+2).toString() + ", " + ((color==0)?"White":"Black") + " to move")
 }
 
 function btn_press_play() {
@@ -66,11 +66,13 @@ function btn_press_play() {
 }
 
 function load_state(){
-	var data = game_data[player][gi][mi]
+	var data = game_data[player][ti]
 	var color = data[0]
 	var bp = data[1]
 	var wp = data[2]
 	var move = data[3]
+	var move1 = data[4]
+	var move2 = data[5]	
 	board = new Board()
 	board.create_tiles()
 	for(var i=0; i<M*N; i++){
@@ -81,76 +83,32 @@ function load_state(){
 			board.add_piece(i, 1);
 		}
 	}
-	board.add_piece(move,color);
-	board.show_last_move(move, color);
-	if(mi>0){
-		data = game_data[player][gi][mi-1]
-		color = data[0]
-		move = data[3]
-		board.show_last_move(move, color);
-	}
-	show_game_info()
+	board.tiles[move1].append("<div class='" + (color==0?"black":"white") + "Choice' id='" + move1.toString() + "'></div>");
+	board.tiles[move2].append("<div class='" + (color==0?"black":"white") + "Choice' id='" + move2.toString() + "'></div>");
+	show_trial_info()
 }
 
 function btn_press_forward() {
-	mi++
-	if(mi==game_data[player][gi].length){
-		mi = 0
-		gi++
-		if(gi == game_data[player].length){
-			gi = 0
-			player++
-		}
-		load_state()
-	}
-	else {
-		var data = game_data[player][gi][mi]
-		var color = data[0]
-		var move = data[3]
-		board.add_piece(move,color);
-		board.show_last_move(move, color);
-	}
+	ti++
 	clearTimeout(timer);
 	if(!is_paused){
 		timer = setTimeout(btn_press_forward,2000);
 	}
-	show_game_info()
+	load_state()
 }
 
 function btn_press_backward(){
-	if(mi == 0){
-		if(gi == 0){
-			if(player != 0){
-				player--				
-			}
-			gi = game_data[player].length - 1
-		}
-		else {
-			gi--
-		}
-		mi = game_data[player][gi].length - 1
-		load_state()
-	}
-	else {
-		board.tiles[game_data[player][gi][mi][3]].empty().removeClass("usedTile").addClass("tile").off('mouseenter').off('mouseleave').css("backgroundColor", square_bkgcolor);
-		mi--
-		if(mi > 0){
-			var data = game_data[player][gi][mi-1]
-			var color = data[0]
-			var move = data[3]
-			board.show_last_move(move, color);
-		}
-	}
+	ti--
 	clearTimeout(timer);
 	if(!is_paused){
 		timer = setTimeout(btn_press_forward,2000);
 	}
-	show_game_info()
+	load_state()
 }
 
 
 function load_game_data_old(){
-	var filename = "https://basvanopheusden.github.io/data/games.csv"
+	var filename = "https://basvanopheusden.github.io/data/2afc.csv"
 	$.get(filename, function(response) {
 		game_data = response.split("\n");
 		make_json();
