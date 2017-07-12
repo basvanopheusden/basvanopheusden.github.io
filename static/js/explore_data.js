@@ -1,15 +1,16 @@
-var is_paused = 0;
+var is_paused = 1;
 var game_data;
+timer = null;
 
-function btn_press_play() {
-	console.log("hi")
-    if(!is_paused){
-      is_paused =1;
-	  $("#button_play i").attr("class", "fa fa-pause");
+function keypress_handler(e){
+	if(e.keyCode == 32){
+		btn_press_play()
 	}
-	else {
-	  is_paused =0;
-	  $("#button_play i").attr("class", "fa fa-play");
+	if(e.keyCode == 37){
+		btn_press_backward()
+	}
+	if(e.keyCode == 39){
+		btn_press_forward()
 	}
 }
 
@@ -17,19 +18,29 @@ function load_game_data(){
 	var filename = "https://basvanopheusden.github.io/data/games.json"
 	$.getJSON(filename, function(response) {
 		game_data = response
+		$(document).on('keydown', function(e){keypress_handler(e)});
 		load_state()
 	});
 }
 
+function show_game_info(){
+	$('.headertext').text("Player " + (player+1).toString() + 
+	", Game " + (gi+1).toString() + ", Move " + (mi+1).toString())
+}
+
 function btn_press_play() {
     if(!is_paused){
-      is_paused =1;
-	  $("#button_play i").attr("class", "fa fa-pause");
+      is_paused = 1;
+	  $("#button_play i").attr("class", "fa fa-play");
+	  $("#button_play").css("background-color", "#dddddd");
+	  clearTimeout(timer);
 	}
 	else {
-	  is_paused =0;
-	  $("#button_play i").attr("class", "fa fa-play");
-	}  
+	  is_paused = 0;
+	  $("#button_play i").attr("class", "fa fa-pause");
+	  timer = setTimeout(btn_press_forward,2000);
+	  $("#button_play").css("background-color", "#19DD89");
+	}
 }
 
 function load_state(){
@@ -38,6 +49,8 @@ function load_state(){
 	var bp = data[1]
 	var wp = data[2]
 	var move = data[3]
+	board = new Board()
+	board.create_tiles()
 	for(var i=0; i<M*N; i++){
 		if(bp[i]=='1'){
 			board.add_piece(i, 0);
@@ -48,6 +61,13 @@ function load_state(){
 	}
 	board.add_piece(move,color);
 	board.show_last_move(move, color);
+	if(mi>0){
+		data = game_data[player][gi][mi-1]
+		color = data[0]
+		move = data[3]
+		board.show_last_move(move, color);
+	}
+	show_game_info()
 }
 
 function btn_press_forward() {
@@ -59,8 +79,7 @@ function btn_press_forward() {
 			gi = 0
 			player++
 		}
-		board = new Board()
-		board.create_tiles()
+		load_state()
 	}
 	else {
 		var data = game_data[player][gi][mi]
@@ -69,11 +88,42 @@ function btn_press_forward() {
 		board.add_piece(move,color);
 		board.show_last_move(move, color);
 	}
+	clearTimeout(timer);
+	if(!is_paused){
+		timer = setTimeout(btn_press_forward,2000);
+	}
+	show_game_info()
 }
 
-function btn_press_backward() {
-	n--;
-	load_state()
+function btn_press_backward(){
+	if(mi == 0){
+		if(gi == 0){
+			if(player != 0){
+				player--				
+			}
+			gi = game_data[player].length - 1
+		}
+		else {
+			gi--
+		}
+		mi = game_data[player][gi].length - 1
+		load_state()
+	}
+	else {
+		board.tiles[game_data[player][gi][mi][3]].empty().removeClass("usedTile").addClass("tile").off('mouseenter').off('mouseleave').css("backgroundColor", square_bkgcolor);
+		mi--
+		if(mi > 0){
+			var data = game_data[player][gi][mi-1]
+			var color = data[0]
+			var move = data[3]
+			board.show_last_move(move, color);
+		}
+	}
+	clearTimeout(timer);
+	if(!is_paused){
+		timer = setTimeout(btn_press_forward,2000);
+	}
+	show_game_info()
 }
 
 

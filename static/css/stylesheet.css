@@ -14,6 +14,26 @@ img {
 	overflow: hidden;
 }
 
+.btn-lg:active, .btn-lg:focus, .btn-lg.active, .btn-lg:focus:active {
+  background-image: none;
+  outline: none;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.btn-lg {
+  background-image: none;
+  outline: none;
+  border: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  padding: 1vh 1vh;
+  font-size: 4vh;
+  border-radius: 1vh;
+  width:8%;	  
+}
+
 /* ~ PAGE TOP MESSAGE BOX ~ */
 .headertext {
 	display:inline;
@@ -28,6 +48,8 @@ img {
 }
 
 /* ~ GAME BOARD ~ */
+
+
 
 /* make all these into multiple selectors? */
 .canvas-container{ padding:0%; }
