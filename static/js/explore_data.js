@@ -1,5 +1,4 @@
 var is_paused = 0;
-var filename = "https://basvanopheusden.github.io/data/games.csv"
 var game_data;
 
 function btn_press_play() {
@@ -15,15 +14,14 @@ function btn_press_play() {
 }
 
 function load_game_data(){
-	$.get(filename, function(response) {
-		game_data = response.split("\n");
-		load_state();
-		make_json();
+	var filename = "https://basvanopheusden.github.io/data/games.json"
+	$.getJSON(filename, function(response) {
+		game_data = response
+		load_state()
 	});
 }
 
 function btn_press_play() {
-	console.log("hi")
     if(!is_paused){
       is_paused =1;
 	  $("#button_play i").attr("class", "fa fa-pause");
@@ -35,6 +33,60 @@ function btn_press_play() {
 }
 
 function load_state(){
+	var data = game_data[player][gi][mi]
+	var color = data[0]
+	var bp = data[1]
+	var wp = data[2]
+	var move = data[3]
+	for(var i=0; i<M*N; i++){
+		if(bp[i]=='1'){
+			board.add_piece(i, 0);
+		}
+		if(wp[i]=='1'){
+			board.add_piece(i, 1);
+		}
+	}
+	board.add_piece(move,color);
+	board.show_last_move(move, color);
+}
+
+function btn_press_forward() {
+	mi++
+	if(mi==game_data[player][gi].length){
+		mi = 0
+		gi++
+		if(gi == game_data[player].length){
+			gi = 0
+			player++
+		}
+		board = new Board()
+		board.create_tiles()
+	}
+	else {
+		var data = game_data[player][gi][mi]
+		var color = data[0]
+		var move = data[3]
+		board.add_piece(move,color);
+		board.show_last_move(move, color);
+	}
+}
+
+function btn_press_backward() {
+	n--;
+	load_state()
+}
+
+
+function load_game_data_old(){
+	var filename = "https://basvanopheusden.github.io/data/games.csv"
+	$.get(filename, function(response) {
+		game_data = response.split("\n");
+		load_state_old();
+		make_json();
+	});
+}
+
+function load_state_old(){
 	var bp = game_data[n].split(",")[2]
 	var wp = game_data[n].split(",")[3]
 	var color = parseInt(game_data[n].split(",")[1])
@@ -51,16 +103,6 @@ function load_state(){
 	board.show_last_move(move, color);
 }
 
-function btn_press_forward() {
-	n++;
-	load_state()
-}
-
-function btn_press_backward() {
-	n--;
-	load_state()
-}
-
 function make_json(){
 	player = 0;
 	x=[]
@@ -73,21 +115,20 @@ function make_json(){
 		var color = parseInt(game_data[i].split(",")[1])
 		var move = parseInt(game_data[i].split(",")[4])
 		var l = bp.split('1').length + wp.split('1').length -2
-		z.push([color,bp,wp,move])
+		if(p > player && p < 1000){
+			player++
+			x.push(y)
+			y=[]
+		}
 		if(l == 0 && i>0){
 			y.push(z)
 			z=[]
 		}
-		if(p > player && p < 1000){
-			player++
-			x.push(y)
-			console.log(i,x)
-			y=[]
-		}
+		z.push([color,bp,wp,move])
 	}
 	x.push(y)
 	console.log(x.length)
-    var blob = new Blob([JSON.stringify(x)], {type: 'text/csv'});
+    var blob = new Blob([JSON.stringify(x)], {type: 'text/json'});
 	var elem = window.document.createElement('a');
 	elem.href = window.URL.createObjectURL(blob);
 	elem.download = "games.json";        
