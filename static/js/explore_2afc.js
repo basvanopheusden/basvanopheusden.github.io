@@ -119,24 +119,20 @@ function make_json(){
 	player = 0;
 	x=[]
 	y=[]
-	z=[]
 	for(var i=0;i<game_data.length-1;i++){
 		var p = parseInt(game_data[i].split(",")[0])
 		var wp = game_data[i].split(",")[3]
 		var bp = game_data[i].split(",")[2]
 		var color = parseInt(game_data[i].split(",")[1])
 		var move = parseInt(game_data[i].split(",")[4])
-		var l = bp.split('1').length + wp.split('1').length -2
+		var move1 = parseFloat(game_data[i].split(",")[6])
+		var move2 = parseFloat(game_data[i].split(",")[7])
 		if(p > player && p < 1000){
 			player++
 			x.push(y)
 			y=[]
 		}
-		if(l == 0 && i>0){
-			y.push(z)
-			z=[]
-		}
-		z.push([color,bp,wp,move,p])
+		y.push([color,bp,wp,move,p,move1,move2])
 	}
 	x.push(y)
 	console.log(x.length)
