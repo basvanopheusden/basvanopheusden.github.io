@@ -24,11 +24,12 @@
 		N=4;
 		K=4;
 		
+		var n=14;
+		
 		$(document).ready(function() {
 			board = new Board();
 			board.create_tiles();
 			load_game_data();
-			show_state(14);
 		});
 	</script>	
 
@@ -58,13 +59,13 @@
 				<button type="button" id="button_backward" class="btn" onclick='btn_press_begin()'>
 					<i class="fa fa-step-backward"></i>
 				</button>
-				<button type="button" id="button_backward" class="btn" onclick='btn_press_backwards()'>
+				<button type="button" id="button_backward" class="btn" onclick='btn_press_backward()'>
 					<i class="fa fa-chevron-left"></i>
 				</button>
 				<button type="button" id="button_play" class="btn" onclick='btn_press_play()'>
 					<i class="fa fa-play"></i>
 				</button>
-				<button type="button" id="button_forward" class="btn" onclick='btn_press_forwards()'>
+				<button type="button" id="button_forward" class="btn" onclick='btn_press_forward()'>
 					<i class="fa fa-chevron-right"></i>
 				</button>
 				<button type="button" id="button_backward" class="btn" onclick='btn_press_end()'>
