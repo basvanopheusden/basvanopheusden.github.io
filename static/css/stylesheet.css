@@ -111,12 +111,24 @@ img {
 	margin: 12.5% auto auto auto;
 	background-color: #999999;
 	border-radius:100%;
-	border-style:dotted;
-	border-width:6px;
+	border-style:dashed;
+	border-width:0.6vh;
 	opacity:1.0;
 	height:75%;
 	width:75%;
 	z-index:7;
+}
+
+.chosenTile {
+	vertical-align:middle;
+	text-align: center;
+	position: relative;
+	margin: -75% auto 12.5% 12.5%;
+	border-width:0.6vh;
+	height:75%;
+	width:75%;
+	z-index:8;
+	font-size:5.115vw;
 }
 
 .blackChoice { border-color:black; }

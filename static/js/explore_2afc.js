@@ -4,7 +4,7 @@ timer = null;
 
 function start(){
 	$(document).on('keydown', function(e){keypress_handler(e)});
-	select_random_board()
+	select_random_trial()
 }
 
 function select_random_trial(){
@@ -43,11 +43,9 @@ function process_name(n){
 }
 
 function show_trial_info(){
-	var color = game_data[player][gi][0]
-	var blackplayer = process_name(game_data[player][gi][0][4])
-	var whiteplayer = process_name(game_data[player][gi][1][4])
-	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer)
-	$('.headertext2').text("Move " + (mi+2).toString() + ", " + ((color==0)?"White":"Black") + " to move")
+	var color = game_data[player][ti][0]
+	$('.headertext').text(process_name(game_data[player][ti][4]))
+	$('.headertext2').text("Trial " + (ti+1).toString() + ", " + ((color==1)?"White":"Black") + " to move")
 }
 
 function btn_press_play() {
@@ -71,8 +69,8 @@ function load_state(){
 	var bp = data[1]
 	var wp = data[2]
 	var move = data[3]
-	var move1 = data[4]
-	var move2 = data[5]	
+	var move1 = data[5]
+	var move2 = data[6]
 	board = new Board()
 	board.create_tiles()
 	for(var i=0; i<M*N; i++){
@@ -85,11 +83,23 @@ function load_state(){
 	}
 	board.tiles[move1].append("<div class='" + (color==0?"black":"white") + "Choice' id='" + move1.toString() + "'></div>");
 	board.tiles[move2].append("<div class='" + (color==0?"black":"white") + "Choice' id='" + move2.toString() + "'></div>");
+	clearTimeout(timer);
+	timer = setTimeout(function(){
+		$('#' + move.toString() + '.tile').append("<i class='fa fa-times chosenTile' aria-hidden='true' style=\"color: " + (color==0?"#000000":"#FFFFFF") + "\"></i>");
+		if(!is_paused){
+			clearTimeout(timer);
+			timer = setTimeout(btn_press_forward,1350);
+		}
+	},650)
 	show_trial_info()
 }
 
 function btn_press_forward() {
 	ti++
+	if(ti == game_data[player].length){
+		player++
+		ti = 0		
+	}
 	clearTimeout(timer);
 	if(!is_paused){
 		timer = setTimeout(btn_press_forward,2000);
@@ -98,6 +108,10 @@ function btn_press_forward() {
 }
 
 function btn_press_backward(){
+	if(ti == 0){
+		player--
+		ti = game_data[player].length
+	}
 	ti--
 	clearTimeout(timer);
 	if(!is_paused){
