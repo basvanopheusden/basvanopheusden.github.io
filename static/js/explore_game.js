@@ -180,7 +180,7 @@ function make_json(){
 			y.push(z)
 			z=[]
 		}
-		z.push([color,bp,wp,move,p])
+		z.push([color,bp,wp,move])
 	}
 	x.push(y)
 	console.log(x.length)
