@@ -4,6 +4,7 @@ timer = null;
 
 function start(){
 	$(document).on('keydown', function(e){keypress_handler(e)});
+	$('input[name="radio"]').off('click')
 	select_random_trial()
 }
 
@@ -68,8 +69,7 @@ function load_state(){
 	var color = data[0]
 	var bp = data[1]
 	var wp = data[2]
-	var move = data[3]
-	var choice = data[5]
+	var choice = data[3]
 	board = new Board()
 	board.create_tiles()
 	for(var i=0; i<M*N; i++){
@@ -80,9 +80,11 @@ function load_state(){
 			board.add_piece(i, 1);
 		}
 	}
+	$('input[name="radio"]').prop('checked', false);
 	clearTimeout(timer);
 	timer = setTimeout(function(){
-		//make the choice
+		console.log(choice)
+		$('input[name="radio"][value="' + choice.toString() + '"]').prop('checked', true);
 		if(!is_paused){
 			clearTimeout(timer);
 			timer = setTimeout(btn_press_forward,1350);
@@ -141,7 +143,7 @@ function make_json(){
 			x.push(y)
 			y=[]
 		}
-		y.push([color,bp,wp,choice,p])
+		y.push([color,bp,wp,choice])
 	}
 	x.push(y)
 	console.log(x.length)

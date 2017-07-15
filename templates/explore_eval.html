@@ -27,7 +27,8 @@
 		$(document).ready(function() {
 			board = new Board();
 			board.create_tiles();
-			load_game_data_old();
+			//load_game_data_old();
+			load_data()
 		});
 	</script>	
 
@@ -41,7 +42,7 @@
 			<div class='row _blank_'></div>
 			<div class='row _blank_'></div>
 			<div class="row">
-				<div class="indicator col-xs-24 col-sm-offset-6">
+				<div class="indicator col-xs-24 col-xs-offset-6 text-center">
 					<h1 class='headertext'></h1>
 				</div>
 			</div>
@@ -53,9 +54,7 @@
 					<div class="canvas"></div>
 				</div>
             </div>
-            <div class="row">
-                <div class="col-xs-4 col-xs-offset-16 _blank_"></div>
-            </div>
+            <div class="row _blank_"></div>
 			<div class="row text-center eval-element radio-bar">
 				<div class="container-fluid col-xs-4 col-xs-offset-4" id="evaluation-radio"><input type="radio" name="radio" value="1"></div>
 				<div class="container-fluid col-xs-4" id="evaluation-radio"><input type="radio" name="radio" value="2"></div>
@@ -84,7 +83,7 @@
 			</div>
 			<div class='row _blank_'></div>
 			<div class='row'>
-				<div class='col-xs-8 col-xs-offset-2 text-center'>
+				<div class='col-xs-24 col-xs-offset-6 text-center'>
 					<h1 class='headertext2'></h1>
 				</div>
 			</div>
