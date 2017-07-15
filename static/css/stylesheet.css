@@ -137,6 +137,27 @@ img {
 
 .whitePiece, .whiteShadow, .whiteMark, .blackShadow { background-color: white; }
 
+._blank_ { min-height:1.6vh;}
+
+ #scale-label {
+	font-size:3vh;
+	text-align: center;
+	cursor:none;
+}
+
+input[type=radio] { 
+	background-color: #333333;
+	margin-left: 5%;
+	margin-right:5%;
+	width: 2vw;
+	height: 2vw;
+}
+
+.radio-bar {
+	min-height:5vh;
+} 
+
+
 /* ~ MODAL DIALOGS ~ */
 
 .modal-backdrop.fade {
@@ -226,5 +247,3 @@ img {
 	text-align:center;
 	/*min-height: 75px;*/
 }
-
-._blank_ { min-height:1.6vh;}
