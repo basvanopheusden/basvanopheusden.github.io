@@ -151,10 +151,10 @@ function btn_press_backward(){
 
 
 function load_game_data_old(){
-	var filename = "https://basvanopheusden.github.io/data/games.csv"
+	var filename = "https://basvanopheusden.github.io/data/games-hvh.csv"
 	$.get(filename, function(response) {
 		game_data = response.split("\n");
-		make_json();
+		//make_json();
 	});
 }
 
@@ -163,6 +163,7 @@ function make_json(){
 	x=[]
 	y=[]
 	z=[]
+	console.log(game_data.length)
 	for(var i=0;i<game_data.length-1;i++){
 		var p = parseInt(game_data[i].split(",")[0])
 		var wp = game_data[i].split(",")[3]

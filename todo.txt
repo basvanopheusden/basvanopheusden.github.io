@@ -1,0 +1,12 @@
+Select data set 
+Select game
+Select random
+About this experiment
+About this participant
+Incorporate response times & add playback speed slider
+bounds forwards backwards
+
+Add model predictions
+Add timed AI
+Upload hvh, learning, time pressure
+Add Turing
