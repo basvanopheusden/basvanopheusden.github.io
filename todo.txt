@@ -10,3 +10,4 @@ Add model predictions
 Add timed AI
 Upload hvh, learning, time pressure
 Add Turing
+Add winning animation

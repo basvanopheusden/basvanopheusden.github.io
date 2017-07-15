@@ -26,8 +26,7 @@ function keypress_handler(e){
 	}
 }
 
-function load_game_data(){
-	var filename = "https://basvanopheusden.github.io/data/games.json"
+function load_game_data(filename){
 	$.getJSON(filename, function(response) {
 		game_data = response
 		start()
@@ -180,7 +179,7 @@ function make_json(){
 			y.push(z)
 			z=[]
 		}
-		z.push([color,bp,wp,move])
+		z.push([color,bp,wp,move,p])
 	}
 	x.push(y)
 	console.log(x.length)
