@@ -14,6 +14,10 @@ img {
 	overflow: hidden;
 }
 
+.eval-element{
+	pointer-events:none;
+}
+
 .btn-lg:active, .btn-lg:focus, .btn-lg.active, .btn-lg:focus:active {
   background-image: none;
   outline: none;

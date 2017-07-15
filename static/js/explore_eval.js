@@ -4,7 +4,7 @@ timer = null;
 
 function start(){
 	$(document).on('keydown', function(e){keypress_handler(e)});
-	$('input[name="radio"]').off('click')
+	$('input[name="radio"]').off('click').css("cursor","default")
 	select_random_trial()
 }
 
@@ -80,11 +80,11 @@ function load_state(){
 			board.add_piece(i, 1);
 		}
 	}
-	$('input[name="radio"]').prop('checked', false);
+	$('input[name="radio"]').prop('checked', false)
 	clearTimeout(timer);
 	timer = setTimeout(function(){
 		console.log(choice)
-		$('input[name="radio"][value="' + choice.toString() + '"]').prop('checked', true);
+		$('input[name="radio"][value="' + choice.toString() + '"]').prop('checked', true)
 		if(!is_paused){
 			clearTimeout(timer);
 			timer = setTimeout(btn_press_forward,1350);
