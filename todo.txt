@@ -10,7 +10,6 @@ Add winning animation
 
 Add model predictions
 Add timed AI
-Add Turing
 Fix loading bug
 
 Combine into one
