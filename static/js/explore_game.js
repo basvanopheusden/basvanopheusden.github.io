@@ -3,7 +3,7 @@ var game_data;
 timer = null;
 
 function start(){
-	$(document).on('keydown', function(e){keypress_handler(e)});
+	$(document).off().on('keydown', function(e){keypress_handler(e)});
 	select_random_board()
 }
 
@@ -149,11 +149,10 @@ function btn_press_backward(){
 }
 
 
-function load_game_data_old(){
-	var filename = "https://basvanopheusden.github.io/data/games-hvh.csv"
+function load_game_data_old(filename){
 	$.get(filename, function(response) {
 		game_data = response.split("\n");
-		//make_json();
+		make_json();
 	});
 }
 
