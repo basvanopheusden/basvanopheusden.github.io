@@ -9,58 +9,25 @@ var n_trials = clip_files.length;
 var trial_no = 0;
 var completion = 0;
 var feedback, answer;
-
-
-/*
-player.defaultPlaybackRate = 1.8;
-    $('#slider-labels p').hide();
-    $('.submit-btn').on('click', function(e) { submitHandler(e); }).prop('disabled', true).hide();
-    $('.play-btn').on('click', function(e) { playHandler(e); });
-    $('#slider').on('click', function(e) { sliderchangeHandler(e); }).hide();
-    $('#next-trial').on('click', function() { $('#feedback-modal').modal('hide'); });
-   $('#slider').prop('disabled', true).hide();
-    $('.play-btn').prop('disabled', false);
-  player.controls = false;
-var stim_source = $('#stim-source') //document.getElementById('stim-source');
-var player = document.getElementById('turing-stim');
-    player.play();
-    document.getElementById('play').value = "Play next";
-    $('.play-btn').prop('disabled', true).fadeOut('slow');
-    //$('#feedback-text').text("");
-    $('#slider').prop('disabled', false).fadeIn('slow');
-    $('#slider-labels p').fadeIn();
-    $('.submit-btn').prop('disabled', false);
-    $('.submit-btn').fadeIn('slow');
-
-    var val = $('#slider').val();
-    answer = clip_answers[i]
-    feedback = ((val>=50) == answer);
-    feedback_message = (feedback==1) ? "Correct!" : "Incorrect."
-
-    $('.submit-btn').prop('disabled', true).fadeOut('slow');
-    $('#slider-labels p').fadeOut('slow');
-	
-*/
-
 var is_paused = 1;
 var game_data = null;
 timer = null;
 
 function getClip(clipno) {
-    return 'static/media/video/turing_videos/' + String(clipno) + '.mp4'
+    return 'https://basvanopheusden.github.io/media/video/turing_videos/' + String(clipno) + '.mp4'
 }
 
 function start(data){
-	game_data = data
-    player.addEventListener('ended',function(e) { endHandler(e); });
-	
+	game_data = [[[1,84],[2,34]]]
 	$(document).off().on('keydown', function(e){keypress_handler(e)});
-	//select_random_board()
+	$('#turing-stim').defaultPlaybackRate = 1.8;
+	$('#slider').prop('disabled', true).css('cursor','default')
+	select_random_trial()
 }
 
 function select_random_trial(){
-	player = Math.floor((Math.random() * game_data.length) + 1);
-	ti = Math.floor((Math.random() * game_data[player].length) + 1);
+	player = Math.floor((Math.random() * game_data.length));
+	ti = Math.floor((Math.random() * game_data[player].length));
 	load_state()
 }
 
@@ -91,8 +58,8 @@ function process_name(n){
 	}
 }
 
-function show_game_info(){
-	var participant = process_name(game_data[player][gi][0][4])
+function show_trial_info(){
+	var participant = process_name(game_data[player][ti])
 	$('.headertext').text("participant" + participant.toString())
 }
 
@@ -111,21 +78,20 @@ function btn_press_play() {
 	}
 }
 
-function loadVideo(clipno) {
-    // add optional callback
+function loadVideo(clipno,callback) {
     var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        console.log("State: ", this.readyState, "Status: ", this.status);
-        if (this.readyState == 4 && this.status == 200) {
+    xhr.open('GET', getClip(clipno));
+    xhr.responseType = 'blob';
+	xhr.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
             var url = window.URL || window.webkitURL;
-            stim_source.attr('src', url.createObjectURL(this.response));
-            player.load();
+            $('#stim-source').attr('src', url.createObjectURL(this.response));
+            $('#turing-stim').load();
+			callback();
         } else if (this.readyState == 4) {
             console.log(this.status);
         }
     }
-    xhr.open('GET', getClip(clipno));
-    xhr.responseType = 'blob';
     xhr.send();
 }
 
@@ -133,16 +99,24 @@ function load_state(){
 	var data = game_data[player][ti]
 	var clipno = data[0]
 	var choice = data[1]
-	loadVideo(clipno)
-	
-	clearTimeout(timer);
-	timer = setTimeout(function(){
-		$('#' + move.toString() + '.tile').append("<i class='fa fa-times chosenTile' aria-hidden='true' style=\"color: " + (color==0?"#000000":"#FFFFFF") + "\"></i>");
-		if(!is_paused){
-			clearTimeout(timer);
-			timer = setTimeout(btn_press_forward,1350);
-		}
-	},650)
+	loadVideo(clipno, function(){
+		$('#turing-stim').controls = false;
+		document.getElementById('turing-stim').play();	
+	})
+	$('#turing-stim').on('ended',function(e){
+		clearTimeout(timer);
+		timer = setTimeout(function(){
+			$('#slider').animate({slideValue : 50 - choice},{step:function(){
+				$('#slider').val(Math.ceil(50 - this.slideValue));
+			}});
+			var feedback = ((choice>=50) == clip_answers[i]) ? "Correct!" : "Incorrect."
+			
+			if(!is_paused){
+				clearTimeout(timer);
+				timer = setTimeout(btn_press_forward,1350);
+			}
+		},650)
+	})
 	show_trial_info()
 }
 
@@ -179,19 +153,16 @@ function show_feedback(){
             setTimeout(function() {
                 $('#turing-stim').fadeOut('slow', function() {
                     loadVideo(clip);
-                    player.onloadeddata = function() {
+                    $('#turing-stim').on('loadeddata',function() {
                         $('#feedback-text').text("");
                         $('#turing-stim').fadeIn('slow');
                         $('.play-btn').fadeIn('slow');
-                    }
+                    });
                 });
             }, 1000);
         });
     });
 }
-
-	
-
 
 function load_game_data_old(filename){
 	$.get(filename, function(response) {

@@ -15,7 +15,7 @@
 
 	<script src="../static/js/util.js"></script>
 	<script src="../static/js/game.js"></script>
-	<script src="../static/js/conditions/turing.js"></script>
+	<script src="../static/js/turing.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
 	<link href = "../static/css/lib/bootstrap-12/bootstrap.min.css" rel = "stylesheet">
@@ -43,46 +43,40 @@
 				</video>
 			</div>
 		</div>
-		<div class='row'>
-			<div class='container col-xs-10 col-xs-offset-1' id='slider-input-div'>
-				<div class='row' id='slider-row'>
-					<input class='col-xs-12' type='range' min=0 max=100 id='slider'>
-					<div id='slider-labels' class='col-xs-12'>
-						<div class='row'>
-							<div class='col-xs-4'><p style="text-align:left;" id='humans'>Certainly computers</p></div>
-							<div class='col-xs-4'><p style="text-align:center;" id='noClue'>No clue</p></div>
-							<div class='col-xs-4'><p style="text-align:right;" id='comps'>Certainly humans</p></div>
-						</div>
-					</div>
-					<div class='text-center col-xs-6 col-xs-offset-3' id='turing-feedback'>
-						<p id='feedback-text'></p>
+		<div class='container col-xs-10 col-xs-offset-1' id='slider-input-div'>
+			<div class='row' id='slider-row'>
+				<input class='col-xs-12' type='range' min=0 max=100 id='slider'>
+				<div id='slider-labels' class='col-xs-12'>
+					<div class='row'>
+						<div class='col-xs-4'><p style="text-align:left;" id='humans'>Certainly computers</p></div>
+						<div class='col-xs-4'><p style="text-align:center;" id='noClue'>No clue</p></div>
+						<div class='col-xs-4'><p style="text-align:right;" id='comps'>Certainly humans</p></div>
 					</div>
 				</div>
+				<div class='text-center col-xs-6 col-xs-offset-3' id='turing-feedback'>
+					<p id='feedback-text'></p>
+				</div>
+			</div>
+		</div>
+		
+		<div class='row _blank_'></div>
 
-				<div class='row' id='button-row'>
-					<div class='text-center col-xs-6 col-xs-offset-3'>
-						<input class='btn btn-lrg play-btn' type="button" value="Play" id='play' disabled>
-						<input class='btn btn-lrg submit-btn' type="button" value="Submit" id='submit' disabled>
-					</div>
-				</div>
-			
-			<div class="player text-center">
-				<button type="button" id="button_backward" class="btn-lg" onclick='btn_press_backward()'>
-					<i class="fa fa-chevron-left"></i>
-				</button>
-				<button type="button" id="button_play" class="btn-lg" onclick='btn_press_play()'>
-					<i class="fa fa-play"></i>
-				</button>
-				<button type="button" id="button_forward" class="btn-lg" onclick='btn_press_forward()'>
-					<i class="fa fa-chevron-right"></i>
-				</button>
+		<div class="player text-center">
+			<button type="button" id="button_backward" class="btn-lg" onclick='btn_press_backward()'>
+				<i class="fa fa-chevron-left"></i>
+			</button>
+			<button type="button" id="button_play" class="btn-lg" onclick='btn_press_play()'>
+				<i class="fa fa-play"></i>
+			</button>
+			<button type="button" id="button_forward" class="btn-lg" onclick='btn_press_forward()'>
+				<i class="fa fa-chevron-right"></i>
+			</button>
+		</div>
+		<div class='row _blank_'></div>
+		<div class='row'>
+			<div class='col-xs-8 col-xs-offset-2 text-center'>
+				<h1 class='headertext2'></h1>
 			</div>
-			<div class='row _blank_'></div>
-			<div class='row'>
-				<div class='col-xs-8 col-xs-offset-2 text-center'>
-					<h1 class='headertext2'></h1>
-				</div>
-			</div>
-		</div>		
+		</div>	
 	</body>
 </html>
