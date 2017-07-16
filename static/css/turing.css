@@ -1,0 +1,44 @@
+.btn:disabled {
+    cursor: default;
+}
+
+#slider, #slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+#slider::-webkit-slider-runnable-track {
+    position: relative;
+    height: 30px;
+    background: linear-gradient(90deg, #000000, #170000, #2e0000, #450000, #5c0000, #730000, #8a0000, #a10000, #b80000, #cf0000, #e60000);
+    /*background-size: 2em 100%, 100% 100%;*/
+}
+
+#slider::-webkit-slider-thumb {
+    width: 10px;
+    height: 30px;
+    background-color: black;
+    border-style: solid;
+    border-width: 1px;
+    border-color: white;
+}
+
+#slider { height: 60px; cursor: pointer; text-align: center; }
+#slider:focus {outline: none;}
+/*#slider-input-div { border-style: dashed; border-color: black; }*/ /*DEBUGGING UI*/
+#slider-labels p { font-size: 20px; }
+#slider-labels { height: 25px; }
+#feedback-text { font-size: 25px; }
+#slider-row { height: 90px; max-width: 890px; margin: 0 auto}
+
+#end-modal{
+    position: absolute;
+    left: 50%;
+    margin-left: -50.5%;
+    top: 50%;
+    margin-top: -10%;
+}
+
+#turing-stim { display: block; width: 900px; height: 400px; margin: 0 auto; }
+.turing-container {height: 400px;}
+
+#submit, #play { margin: 0 auto;}
