@@ -4,11 +4,13 @@ Select random
 About this experiment
 About this participant
 Incorporate response times & add playback speed slider
-bounds forwards backwards
+bounds forwards backwards - done in game
 Add empty board in playback
 Add winning animation
 
 Add model predictions
 Add timed AI
-Upload hvh, learning, time pressure
 Add Turing
+Fix loading bug
+
+Combine into one

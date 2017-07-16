@@ -1,17 +1,22 @@
 var is_paused = 1;
-var game_data;
+var game_data = null;
 timer = null;
 
-function start(){
+function start(data){
+	game_data = data
+	board = new Board();
+	board.create_tiles();
 	$(document).off().on('keydown', function(e){keypress_handler(e)});
 	select_random_board()
 }
 
 function select_random_board(){
-	player = Math.floor((Math.random() * game_data.length) + 1);
-	gi = Math.floor((Math.random() * game_data[player].length) + 1);
-	mi = Math.floor((Math.random() * game_data[player][gi].length) + 1);
-	load_state()
+	if(game_data != null){
+		player = Math.floor((Math.random() * game_data.length) + 1);
+		gi = Math.floor((Math.random() * game_data[player].length) + 1);
+		mi = Math.floor((Math.random() * game_data[player][gi].length) + 1);
+		load_state()
+	}
 }
 
 function keypress_handler(e){
@@ -28,8 +33,7 @@ function keypress_handler(e){
 
 function load_game_data(filename){
 	$.getJSON(filename, function(response) {
-		game_data = response
-		start()
+		start(response)
 	});
 }
 
@@ -93,59 +97,63 @@ function load_state(){
 }
 
 function btn_press_forward() {
-	mi++
-	if(mi==game_data[player][gi].length){
-		mi = 0
-		gi++
-		if(gi == game_data[player].length){
-			gi = 0
-			player++
+	if(mi<game_data[player][gi].length-1 || gi<game_data[player].length-1 || player<game_data.length-1){
+		mi++
+		if(mi==game_data[player][gi].length){
+			mi = 0
+			gi++
+			if(gi == game_data[player].length){
+				gi = 0
+				player++
+			}
+			load_state()
 		}
-		load_state()
+		else {
+			var data = game_data[player][gi][mi]
+			var color = data[0]
+			var move = data[3]
+			board.add_piece(move,color);
+			board.show_last_move(move, color);
+		}
+		clearTimeout(timer);
+		if(!is_paused){
+			timer = setTimeout(btn_press_forward,2000);
+		}
+		show_game_info()
 	}
-	else {
-		var data = game_data[player][gi][mi]
-		var color = data[0]
-		var move = data[3]
-		board.add_piece(move,color);
-		board.show_last_move(move, color);
-	}
-	clearTimeout(timer);
-	if(!is_paused){
-		timer = setTimeout(btn_press_forward,2000);
-	}
-	show_game_info()
 }
 
 function btn_press_backward(){
-	if(mi == 0){
-		if(gi == 0){
-			if(player != 0){
-				player--				
+	if(mi>0 || gi >0 || player >0){
+		if(mi == 0){
+			if(gi == 0){
+				if(player > 0){
+					player--				
+				}
+				gi = game_data[player].length - 1
 			}
-			gi = game_data[player].length - 1
+			else {
+				gi--
+			}
+			mi = game_data[player][gi].length - 1
+			load_state()
 		}
 		else {
-			gi--
+			board.tiles[game_data[player][gi][mi][3]].empty().removeClass("usedTile").addClass("tile").off('mouseenter').off('mouseleave').css("backgroundColor", square_bkgcolor);
+			mi--
+			if(mi > 0){
+				var data = game_data[player][gi][mi-1]
+				var color = data[0]
+				var move = data[3]
+				board.show_last_move(move, color);
+			}
 		}
-		mi = game_data[player][gi].length - 1
-		load_state()
-	}
-	else {
-		board.tiles[game_data[player][gi][mi][3]].empty().removeClass("usedTile").addClass("tile").off('mouseenter').off('mouseleave').css("backgroundColor", square_bkgcolor);
-		mi--
-		if(mi > 0){
-			var data = game_data[player][gi][mi-1]
-			var color = data[0]
-			var move = data[3]
-			board.show_last_move(move, color);
+		clearTimeout(timer);
+		if(!is_paused){
+			timer = setTimeout(btn_press_forward,2000);
 		}
+		show_game_info()
 	}
-	clearTimeout(timer);
-	if(!is_paused){
-		timer = setTimeout(btn_press_forward,2000);
-	}
-	show_game_info()
 }
 
 
