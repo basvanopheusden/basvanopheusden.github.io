@@ -12,9 +12,12 @@ function start(data){
 
 function select_random_board(){
 	if(game_data != null){
-		player = Math.floor((Math.random() * game_data.length) + 1);
-		gi = Math.floor((Math.random() * game_data[player].length) + 1);
-		mi = Math.floor((Math.random() * game_data[player][gi].length) + 1);
+		player = Math.floor((Math.random() * game_data.length));
+		console.log(player)
+		gi = Math.floor((Math.random() * game_data[player].length));
+		console.log(gi)
+		mi = Math.floor((Math.random() * game_data[player][gi].length));
+		console.log(mi)
 		load_state()
 	}
 }

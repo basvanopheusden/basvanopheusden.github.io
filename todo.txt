@@ -1,15 +1,20 @@
+More development:
 Select data set 
 Select game
 Select random
 About this experiment
 About this participant
+Add model predictions
+Add timed AI - style timers
+
+Hard stuff:
+Fix loading bug
+
+Optional:
 Incorporate response times & add playback speed slider
+Combine into one html/css/js
+
+Easy javascript:
 bounds forwards backwards - done in game
 Add empty board in playback
 Add winning animation
-
-Add model predictions
-Add timed AI
-Fix loading bug
-
-Combine into one
