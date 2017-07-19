@@ -13,11 +13,8 @@ function start(data){
 function select_random_board(){
 	if(game_data != null){
 		player = Math.floor((Math.random() * game_data.length));
-		console.log(player)
 		gi = Math.floor((Math.random() * game_data[player].length));
-		console.log(gi)
 		mi = Math.floor((Math.random() * game_data[player][gi].length));
-		console.log(mi)
 		load_state()
 	}
 }
@@ -90,6 +87,7 @@ function load_state(){
 	}
 	board.add_piece(move,color);
 	board.show_last_move(move, color);
+	board.evaluate_win(color);
 	if(mi>0){
 		data = game_data[player][gi][mi-1]
 		color = data[0]
@@ -117,6 +115,7 @@ function btn_press_forward() {
 			var move = data[3]
 			board.add_piece(move,color);
 			board.show_last_move(move, color);
+			board.evaluate_win(color);
 		}
 		clearTimeout(timer);
 		if(!is_paused){
@@ -127,6 +126,8 @@ function btn_press_forward() {
 }
 
 function btn_press_backward(){
+	$(".blackPiece").stop().css({"backgroundColor": "black"})
+	$(".whitePiece").stop().css({"backgroundColor": "white"})	
 	if(mi>0 || gi >0 || player >0){
 		if(mi == 0){
 			if(gi == 0){
@@ -142,13 +143,14 @@ function btn_press_backward(){
 			load_state()
 		}
 		else {
-			board.tiles[game_data[player][gi][mi][3]].empty().removeClass("usedTile").addClass("tile").off('mouseenter').off('mouseleave').css("backgroundColor", square_bkgcolor);
+			board.remove_piece(game_data[player][gi][mi][3])
 			mi--
 			if(mi > 0){
 				var data = game_data[player][gi][mi-1]
 				var color = data[0]
 				var move = data[3]
 				board.show_last_move(move, color);
+				board.evaluate_win(color);
 			}
 		}
 		clearTimeout(timer);

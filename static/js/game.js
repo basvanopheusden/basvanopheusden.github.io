@@ -22,7 +22,7 @@ function Board() {
 			}
 			that.canvas.append("<br>");
 		}
-		that.tiles = _.map(that.tile_ids, function(el){ return $("#" + String(el))}); // write custom function to eliminate underscore
+		that.tiles = _.map(that.tile_ids, function(el){ return $("#" + String(el))}); 
 	}
 
 	this.highlight_tiles = function() {
@@ -39,6 +39,12 @@ function Board() {
 			that.tiles[loc].append(that.white_piece).removeClass("tile").addClass("usedTile").off('mouseenter').off('mouseleave').css("backgroundColor", square_bkgcolor);
 			that.white_position[loc] = 1;
 		}
+	}
+	
+	this.remove_piece = function(loc){
+		that.tiles[loc].empty().removeClass("usedTile").addClass("tile").off().css("backgroundColor", square_bkgcolor);
+		that.black_position[loc]=0
+		that.white_position[loc]=0
 	}
 
 	this.show_last_move = function(loc, col) {
@@ -136,13 +142,7 @@ function Board() {
 
 	this.update_game_status = function(status, col, array) {
 		that.game_status = status;
-		if(that.game_status != "playing") {
-			$(".tile").off('click').off('mouseenter').off('mouseleave');
-			$('.indicator').html("<h1>Game over!</h1>");
-			setTimeout(function() {
-				$('#feedback-modal').modal('show');
-				$("html").css("cursor","default");
-			}, 500)
+		if(that.game_status != "playing"){
 			that.show_win(col, array);
 		}
 	}
@@ -154,26 +154,4 @@ function Board() {
 			}
 		}
 	}
-}
-
-function Player() {
-	this.initials = $("#nameInputField").val();
-	this.last_initials = this.initials;
-	this.color = 0
-	this.score = 0
-	this.opponent_score = 0
-	this.game_index = 0
-	this.scorebox = $('#leftScorebox')
-	this.scoretext = $('#leftScorebox p')
-	this.opponent_scorebox = $('#rightScorebox')
-	this.opponent_scoretext = $('#rightScorebox p')
-	this.opponent_color = 1
-	this.opponent_initials = "QQ"
-	this.show_name = $("#leftScorebox h2").text(this.initials);
-	this.move = 99
-	this.move_start = 0
-	this.move_end = 0
-	this.duration = 0
-	this.mouse_t = [];
-	this.mouse_x = [];
 }

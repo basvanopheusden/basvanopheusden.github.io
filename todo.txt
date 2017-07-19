@@ -8,7 +8,6 @@ Add model predictions
 Add timed AI - style timers
 
 Hard stuff:
-Fix loading bug
 
 Optional:
 Incorporate response times & add playback speed slider
@@ -17,4 +16,5 @@ Combine into one html/css/js
 Easy javascript:
 bounds forwards backwards - done in game
 Add empty board in playback
-Add winning animation
+
+Change off() to stop()
