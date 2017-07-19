@@ -9,8 +9,8 @@ function start(){
 }
 
 function select_random_trial(){
-	player = Math.floor((Math.random() * game_data.length) + 1);
-	ti = Math.floor((Math.random() * game_data[player].length) + 1);
+	player = Math.floor((Math.random() * game_data.length));
+	ti = Math.floor((Math.random() * game_data[player].length));
 	load_state()
 }
 
