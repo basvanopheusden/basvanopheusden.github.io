@@ -14,7 +14,7 @@ function select_random_board(){
 	if(game_data != null){
 		player = Math.floor((Math.random() * game_data.length));
 		gi = Math.floor((Math.random() * game_data[player].length));
-		mi = Math.floor((Math.random() * game_data[player][gi].length));
+		mi = Math.floor((Math.random() * (game_data[player][gi].length+1)))-1;
 		load_state()
 	}
 }
@@ -47,7 +47,7 @@ function process_name(n){
 }
 
 function show_game_info(){
-	var color = game_data[player][gi][mi][0]
+	var color = (mi>=0 ? game_data[player][gi][mi][0] : 0)
 	var blackplayer = process_name(game_data[player][gi][0][4])
 	var whiteplayer = process_name(game_data[player][gi][1][4])
 	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer)
@@ -70,29 +70,31 @@ function btn_press_play() {
 }
 
 function load_state(){
-	var data = game_data[player][gi][mi]
-	var color = data[0]
-	var bp = data[1]
-	var wp = data[2]
-	var move = data[3]
 	board = new Board()
 	board.create_tiles()
-	for(var i=0; i<M*N; i++){
-		if(bp[i]=='1'){
-			board.add_piece(i, 0);
+	if(mi>=0){
+		var data = game_data[player][gi][mi]
+		var color = data[0]
+		var bp = data[1]
+		var wp = data[2]
+		var move = data[3]
+		for(var i=0; i<M*N; i++){
+			if(bp[i]=='1'){
+				board.add_piece(i, 0);
+			}
+			if(wp[i]=='1'){
+				board.add_piece(i, 1);
+			}
 		}
-		if(wp[i]=='1'){
-			board.add_piece(i, 1);
-		}
-	}
-	board.add_piece(move,color);
-	board.show_last_move(move, color);
-	board.evaluate_win(color);
-	if(mi>0){
-		data = game_data[player][gi][mi-1]
-		color = data[0]
-		move = data[3]
+		board.add_piece(move,color);
 		board.show_last_move(move, color);
+		board.evaluate_win(color);
+		if(mi>0){
+			data = game_data[player][gi][mi-1]
+			color = data[0]
+			move = data[3]
+			board.show_last_move(move, color);
+		}
 	}
 	show_game_info()
 }
@@ -101,7 +103,7 @@ function btn_press_forward() {
 	if(mi<game_data[player][gi].length-1 || gi<game_data[player].length-1 || player<game_data.length-1){
 		mi++
 		if(mi==game_data[player][gi].length){
-			mi = 0
+			mi = -1
 			gi++
 			if(gi == game_data[player].length){
 				gi = 0
@@ -128,8 +130,8 @@ function btn_press_forward() {
 function btn_press_backward(){
 	$(".blackPiece").stop().css({"backgroundColor": "black"})
 	$(".whitePiece").stop().css({"backgroundColor": "white"})	
-	if(mi>0 || gi >0 || player >0){
-		if(mi == 0){
+	if(mi>=0 || gi >0 || player >0){
+		if(mi == -1){
 			if(gi == 0){
 				if(player > 0){
 					player--				
@@ -160,7 +162,6 @@ function btn_press_backward(){
 		show_game_info()
 	}
 }
-
 
 function load_game_data_old(filename){
 	$.get(filename, function(response) {

@@ -15,6 +15,4 @@ Combine into one html/css/js
 
 Easy javascript:
 bounds forwards backwards - done in game
-Add empty board in playback
-
 Change off() to stop()
