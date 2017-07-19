@@ -20,7 +20,7 @@ function getClip(clipno) {
 function start(data){
 	game_data = [[[1,84],[2,34]]]
 	$(document).off().on('keydown', function(e){keypress_handler(e)});
-	$('#turing-stim').defaultPlaybackRate = 1.8;
+	$('#turing-stim').prop('defaultPlaybackRate',18)
 	$('#slider').prop('disabled', true).css('cursor','default')
 	select_random_trial()
 }
@@ -99,18 +99,26 @@ function load_state(){
 	var data = game_data[player][ti]
 	var clipno = data[0]
 	var choice = data[1]
+	$('#feedback-text').text("").hide();
+	$('#slider').off().val(50);
 	loadVideo(clipno, function(){
 		$('#turing-stim').controls = false;
 		document.getElementById('turing-stim').play();	
 	})
 	$('#turing-stim').on('ended',function(e){
 		clearTimeout(timer);
+		var feedback = ((choice>=50) == clip_answers[clipno]) ? "Correct!" : "Incorrect."
 		timer = setTimeout(function(){
-			$('#slider').animate({slideValue : 50 - choice},{step:function(){
-				$('#slider').val(Math.ceil(50 - this.slideValue));
-			}});
-			var feedback = ((choice>=50) == clip_answers[i]) ? "Correct!" : "Incorrect."
-			
+			$('#slider').animate({slideValue : 50 - choice},{
+				step:function(){
+					$('#slider').val(Math.ceil(50 - this.slideValue));
+				}, 
+				duration:500, 
+				easing: 'linear',
+				complete: function(){
+					$('#feedback-text').text(feedback).fadeIn(400)
+				}
+			});
 			if(!is_paused){
 				clearTimeout(timer);
 				timer = setTimeout(btn_press_forward,1350);
@@ -146,9 +154,8 @@ function btn_press_backward(){
 	load_state()
 }
 
-function show_feedback(){
+function show_feedback(message){
 	$('#slider').fadeOut('slow', function() {
-        $('#slider').val(50)
         $('#feedback-text').text(feedback_message).fadeIn('slow', function() {
             setTimeout(function() {
                 $('#turing-stim').fadeOut('slow', function() {
