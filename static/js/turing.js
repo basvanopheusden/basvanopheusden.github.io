@@ -129,10 +129,12 @@ function load_state(){
 }
 
 function btn_press_forward() {
-	ti++
-	if(ti == game_data[player].length){
-		player++
-		ti = 0		
+	if(ti < game_data[player].length-1 || player < game_data.length-1){
+		ti++
+		if(ti == game_data[player].length){
+			player++
+			ti = 0	
+		}
 	}
 	clearTimeout(timer);
 	if(!is_paused){
@@ -142,11 +144,13 @@ function btn_press_forward() {
 }
 
 function btn_press_backward(){
-	if(ti == 0){
-		player--
-		ti = game_data[player].length
+	if(ti > 0 || player > 0){
+		if(ti == 0){
+			player--
+			ti = game_data[player].length
+		}
+		ti--
 	}
-	ti--
 	clearTimeout(timer);
 	if(!is_paused){
 		timer = setTimeout(btn_press_forward,2000);
