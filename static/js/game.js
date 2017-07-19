@@ -156,7 +156,7 @@ function Board() {
 	}
 }
 
--function Player() {
+function Player() {
 	this.initials = $("#nameInputField").val();
 	this.last_initials = this.initials;
 	this.color = 0
