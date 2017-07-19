@@ -59,7 +59,7 @@ function btn_press_play() {
 	  is_paused = 0;
 	  $("#button_play i").attr("class", "fa fa-pause");
 	  timer = setTimeout(btn_press_forward,2000);
-	  $("#button_play").css("background-color", "#19DD89");
+	  $("#button_play").css("background-color", "#ffa500");
 	}
 }
 

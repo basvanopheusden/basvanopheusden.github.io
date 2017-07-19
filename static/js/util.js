@@ -3,9 +3,6 @@ var win_color = "#22ddaa",
 	square_bkgcolor = "#999999",
 	square_highlight = "#bbbbbb";
 	
-move_sound.load();
-/* utility funcs */
-
 function build_array(mDim,nDim,fillVal) {
 	return Array.apply(null, new Array(mDim*nDim)).map(Number.prototype.valueOf,fillVal);
 }

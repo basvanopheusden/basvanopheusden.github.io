@@ -5,22 +5,19 @@ var clip_answers = [0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,1,1,1,0,1,1,1,0,1,1,0,1,0,1,1,
 var clip_played = []
 //humans: 1; computers: 0
 
-var n_trials = clip_files.length;
-var trial_no = 0;
-var completion = 0;
 var feedback, answer;
 var is_paused = 1;
 var game_data = null;
-timer = null;
+var timer = null;
 
 function getClip(clipno) {
     return 'https://basvanopheusden.github.io/media/video/turing_videos/' + String(clipno) + '.mp4'
 }
 
 function start(data){
-	game_data = [[[1,84],[2,34]]]
+	game_data = [[[0,99],[1,84],[2,34],[3,24]]]
 	$(document).off().on('keydown', function(e){keypress_handler(e)});
-	$('#turing-stim').prop('defaultPlaybackRate',18)
+	$('#turing-stim').prop('defaultPlaybackRate',10)
 	$('#slider').prop('disabled', true).css('cursor','default')
 	select_random_trial()
 }
@@ -74,7 +71,7 @@ function btn_press_play() {
 	  is_paused = 0;
 	  $("#button_play i").attr("class", "fa fa-pause");
 	  timer = setTimeout(btn_press_forward,2000);
-	  $("#button_play").css("background-color", "#19DD89");
+	  $("#button_play").css("background-color", "#ffa500");
 	}
 }
 
@@ -100,7 +97,7 @@ function load_state(){
 	var clipno = data[0]
 	var choice = data[1]
 	$('#feedback-text').text("").hide();
-	$('#slider').off().val(50);
+	$('#slider').stop().val(50);
 	loadVideo(clipno, function(){
 		$('#turing-stim').controls = false;
 		document.getElementById('turing-stim').play();	
@@ -109,10 +106,10 @@ function load_state(){
 		clearTimeout(timer);
 		var feedback = ((choice>=50) == clip_answers[clipno]) ? "Correct!" : "Incorrect."
 		timer = setTimeout(function(){
-			$('#slider').animate({slideValue : 50 - choice},{
-				step:function(){
-					$('#slider').val(Math.ceil(50 - this.slideValue));
-				}, 
+			$({slideValue : 50}).animate({slideValue : choice},{
+				step:function(now){
+					$('#slider').val(Math.ceil(now));
+				},
 				duration:500, 
 				easing: 'linear',
 				complete: function(){
@@ -156,23 +153,6 @@ function btn_press_backward(){
 		timer = setTimeout(btn_press_forward,2000);
 	}
 	load_state()
-}
-
-function show_feedback(message){
-	$('#slider').fadeOut('slow', function() {
-        $('#feedback-text').text(feedback_message).fadeIn('slow', function() {
-            setTimeout(function() {
-                $('#turing-stim').fadeOut('slow', function() {
-                    loadVideo(clip);
-                    $('#turing-stim').on('loadeddata',function() {
-                        $('#feedback-text').text("");
-                        $('#turing-stim').fadeIn('slow');
-                        $('.play-btn').fadeIn('slow');
-                    });
-                });
-            }, 1000);
-        });
-    });
 }
 
 function load_game_data_old(filename){

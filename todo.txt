@@ -14,5 +14,4 @@ Incorporate response times & add playback speed slider
 Combine into one html/css/js
 
 Easy javascript:
-bounds forwards backwards - done in game
 Change off() to stop()
