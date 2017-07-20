@@ -68,10 +68,12 @@ function btn_press_play() {
 	  clearTimeout(timer);
 	}
 	else {
-	  is_paused = 0;
-	  $("#button_play i").attr("class", "fa fa-pause");
-	  timer = setTimeout(btn_press_forward,2000);
-	  $("#button_play").css("background-color", "#ffa500");
+		is_paused = 0;
+		$("#button_play i").attr("class", "fa fa-pause");
+		if($('#turing-stim').prop("ended")){
+			timer = setTimeout(btn_press_forward,2000);
+		}
+		$("#button_play").css("background-color", "#ffa500");
 	}
 }
 
@@ -96,7 +98,7 @@ function load_state(){
 	var data = game_data[player][ti]
 	var clipno = data[0]
 	var choice = data[1]
-	$('#feedback-text').text("").hide();
+	$('#feedback-text').text("1234").css({"color" : "white"});
 	$('#slider').stop().val(50);
 	loadVideo(clipno, function(){
 		$('#turing-stim').controls = false;
@@ -113,12 +115,12 @@ function load_state(){
 				duration:500, 
 				easing: 'linear',
 				complete: function(){
-					$('#feedback-text').text(feedback).fadeIn(400)
+					$('#feedback-text').css({"color" : "black"}).text(feedback).fadeIn(400)
 				}
 			});
 			if(!is_paused){
 				clearTimeout(timer);
-				timer = setTimeout(btn_press_forward,1350);
+				timer = setTimeout(btn_press_forward,2150);
 			}
 		},650)
 	})
@@ -133,10 +135,6 @@ function btn_press_forward() {
 			ti = 0	
 		}
 	}
-	clearTimeout(timer);
-	if(!is_paused){
-		timer = setTimeout(btn_press_forward,2000);
-	}
 	load_state()
 }
 
@@ -147,10 +145,6 @@ function btn_press_backward(){
 			ti = game_data[player].length
 		}
 		ti--
-	}
-	clearTimeout(timer);
-	if(!is_paused){
-		timer = setTimeout(btn_press_forward,2000);
 	}
 	load_state()
 }
@@ -163,28 +157,19 @@ function load_game_data_old(filename){
 }
 
 function make_json(){
-	player = 0;
+	player = "AF";
 	x=[]
 	y=[]
-	z=[]
-	console.log(game_data.length)
 	for(var i=0;i<game_data.length-1;i++){
-		var p = parseInt(game_data[i].split(",")[0])
-		var wp = game_data[i].split(",")[3]
-		var bp = game_data[i].split(",")[2]
-		var color = parseInt(game_data[i].split(",")[1])
-		var move = parseInt(game_data[i].split(",")[4])
-		var l = bp.split('1').length + wp.split('1').length -2
-		if(p > player && p < 1000){
-			player++
+		var p = game_data[i].split(",")[0]
+		var clip = parseInt(game_data[i].split(",")[1])
+		var resp = parseInt(game_data[i].split(",")[3])
+		if(p != player){
+			player = p 
 			x.push(y)
 			y=[]
 		}
-		if(l == 0 && i>0){
-			y.push(z)
-			z=[]
-		}
-		z.push([color,bp,wp,move,p])
+		y.push([clip,resp])
 	}
 	x.push(y)
 	console.log(x.length)
@@ -196,5 +181,3 @@ function make_json(){
 	elem.click();
 	document.body.removeChild(elem);
 }
-
-
