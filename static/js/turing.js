@@ -157,7 +157,7 @@ function load_game_data_old(filename){
 }
 
 function make_json(){
-	player = "AF";
+	player = "AD";
 	x=[]
 	y=[]
 	for(var i=0;i<game_data.length-1;i++){
