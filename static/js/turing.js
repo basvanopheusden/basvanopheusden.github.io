@@ -15,7 +15,7 @@ function getClip(clipno) {
 }
 
 function start(data){
-	game_data = [[[0,99],[1,84],[2,34],[3,24]]]
+	game_data = data
 	$(document).off().on('keydown', function(e){keypress_handler(e)});
 	$('#turing-stim').prop('defaultPlaybackRate',10)
 	$('#slider').prop('disabled', true).css('cursor','default')
