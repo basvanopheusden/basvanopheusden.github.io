@@ -251,3 +251,64 @@ input[type=radio] {
 	text-align:center;
 	/*min-height: 75px;*/
 }
+
+#visTimerContainerOpp {
+	left: 122px;
+	height: 412px;		    
+	width: 90px;
+	position:relative;
+}
+
+#visTimerOpp{
+	height: 403px;
+	width: 88px;
+	background-color: white;
+	position: absolute;
+	bottom: 6px;
+}
+
+#numTimerContainerOpp {
+  	left: 123px;
+   	top: -27px;
+    width: 88px;
+    position:relative;
+    text-align: center;
+}
+
+#numTimerOpp {
+   	text-align: center;
+   	font-size: 60px;
+  	width: 88px;
+	position:absolute;
+}
+
+#visTimerContainer {
+	left: 10px;
+	height: 412px;		    
+	width: 90px;
+	position:relative;
+}
+		    
+#visTimer{
+	height: 403px;
+	width: 88px;
+	background-color: white;
+	position: absolute;
+	bottom: 6px;
+}
+
+#numTimerContainer {
+	left: 10px;
+	top: -27px;
+	width: 88px;
+	position:relative;
+	text-align: center;
+}
+
+#numTimer {
+	text-align: center;
+	font-size: 60px;
+	width: 88px;
+	position:absolute;
+}
+
