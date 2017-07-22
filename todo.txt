@@ -1,12 +1,11 @@
 More development:
-Select data set 
+Select data set
 Select game
 Select random
 About this experiment
 About this participant
+
+Fixes:
 Add model predictions
-
 Align tai timers with vh, vw
-
-Optional:
-Incorporate response times & add playback speed slider
+Incorporate response times

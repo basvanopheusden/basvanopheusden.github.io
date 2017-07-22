@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset = "utf-8">
+		<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+		<meta name="viewport" content="width=device-width">
+		<meta name="description" content="">
+		<meta name="author" content="Ma Lab">
+
+		<title>generalization</title>
+
+		<script src="../static/js/lib/jquery-2.2.4.min.js"></script>
+		<script src="../static/js/lib/jquery-ui.min.js"></script>
+		<script src="../static/js/lib/bootstrap-36/bootstrap.min.js"></script>
+		<script src="../static/js/lib/underscore-min.js"></script>
+		
+		<link href = "../static/css/lib/bootstrap-36/bootstrap.min.css" rel = "stylesheet">
+		<link href = '../static/css/stylesheet.css' rel='stylesheet'>		
+		<script src="../static/js/run_2afc.js"></script>
+		<script src="../static/js/game.js"></script>
+		<script src="../static/js/util.js"></script>
+
+		
+		<script>
+		var M = 9,
+			N = 4,
+			K = 4
+	
+			$(document).ready(function() {
+				player = new Player()
+				experiment = new Condition_AFC2()
+				experiment.run_block()
+			});
+		</script>
+
+	
+	</head>
+	
+
+	<body>
+		<div class="container-fluid">
+			<div class="row text-center">
+				<div class="indicator col-xs-24 col-sm-offset-6">
+					<h1></h1>
+				</div>
+			</div>
+			<div class="row">
+				<div class="container-fluid col-xs-24 col-xs-offset-6 canvas-container"> <!--col-xs-offset-1-->
+					<div class="canvas"></div>
+				</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4 col-xs-offset-16 _blank_"></div>
+            </div>
+		</div>
+
+	</body>
+
+</html>
