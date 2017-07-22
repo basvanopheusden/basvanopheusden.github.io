@@ -17,7 +17,7 @@ function getClip(clipno) {
 function start(data){
 	game_data = data
 	$(document).off().on('keydown', function(e){keypress_handler(e)});
-	$('#turing-stim').prop('defaultPlaybackRate',10)
+	$('#turing-stim').prop('defaultPlaybackRate',2.8)
 	$('#slider').prop('disabled', true).css('cursor','default')
 	select_random_trial()
 }
