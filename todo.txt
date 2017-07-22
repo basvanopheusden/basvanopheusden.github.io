@@ -6,13 +6,5 @@ About this experiment
 About this participant
 Add model predictions
 
-Add timed AI - style timers
-
-Hard stuff:
-
 Optional:
 Incorporate response times & add playback speed slider
-Combine into one html/css/js
-
-Easy javascript:
-Change off() to stop()
