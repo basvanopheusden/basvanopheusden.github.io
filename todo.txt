@@ -6,5 +6,7 @@ About this experiment
 About this participant
 Add model predictions
 
+Align tai timers with vh, vw
+
 Optional:
 Incorporate response times & add playback speed slider

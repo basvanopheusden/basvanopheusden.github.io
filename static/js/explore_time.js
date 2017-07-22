@@ -17,7 +17,7 @@ function select_random_board(){
 	if(game_data != null){
 		player = Math.floor((Math.random() * game_data.length));
 		gi = Math.floor((Math.random() * game_data[player].length));
-		mi = Math.floor((Math.random() * (game_data[player][gi].length+1)))-1;
+		mi = Math.floor((Math.random() * game_data[player][gi].length));
 		load_state()
 	}
 }
@@ -54,20 +54,18 @@ function show_game_info(){
 	var blackplayer = process_name(game_data[player][gi][0][4])
 	var whiteplayer = process_name(game_data[player][gi][1][4])
 	$('.headertext').text("Black: " + blackplayer + ", White: " + whiteplayer)
-	$('.headertext2').text("Move " + (mi+2).toString() + ", " + ((color==0)?"White":"Black") + " to move")
+	$('.headertext2').text("Move " + (mi+1).toString() + ", " + ((color==0)?"Black":"White") + " to move")
 }
 
 function btn_press_play() {
-    if(!is_paused){
+	if(!is_paused){
       is_paused = 1;
 	  $("#button_play i").attr("class", "fa fa-play");
 	  $("#button_play").css("background-color", "#dddddd");
-	  clearTimeout(timer);
 	}
 	else {
 	  is_paused = 0;
 	  $("#button_play i").attr("class", "fa fa-pause");
-	  timer = setTimeout(btn_press_forward,2000);
 	  $("#button_play").css("background-color", "#ffa500");
 	}
 }
@@ -79,8 +77,52 @@ function get_time_limit_condition(x){
 	return 0
 }
 
+function reset_timer(numTimer, visTimer) {
+	auto_refresh = null;
+	numTimer.text(timerStart/1000);
+	visTimer.stop(true,true).animate({height: timerStartHeight}, {duration: 300});
+	visTimer.css({backgroundColor: timerStartColor});
+	timerCurrent = timerStart;
+}
+
+this.draw_time = function(numTimer, visTimer, timeridx) {
+	timerStart = timelist[timeridx];
+	timerCurrent = timelist[timeridx];
+	timerStartColor = colorlist[timeridx];
+	timerCurrentColor = timerStartColor;
+	timerStartHeight = (timerStart * ((403/20)/1000) + 'px');
+	numTimer.text(timerStart/1000);
+}
+	
+function start_timer(numTimer, visTimer) {
+	if (auto_refresh != null) {
+	     return;
+	}
+    auto_refresh = setInterval(function() {
+        timerCurrent += -1000;
+        numTimer.text(timerCurrent/1000);
+	    if (timerCurrent <= 0) {
+	        Beep(1200, 500);
+	        numTimer.text('time out');
+	        clearInterval(auto_refresh);
+	    } else if (timerCurrent/1000 <= 5) {
+			visTimer.animate({backgroundColor: 'red'});
+     	} else if (timerCurrent/1000 <= 10) {
+          	visTimer.animate({backgroundColor: 'blue'});
+      	} else { 
+	      	visTimer.css('background-color', 'green');
+	    };
+	    if (timerCurrent/1000 == 2) {
+			Beep(300, 250);
+	    } else if (timerCurrent/1000 == 1) {
+	      	Beep(600, 250);
+	    }
+   	}, 1000);
+	visTimer.stop(true, true).animate({height: '0px'}, {duration:timerStart-250, easing:'linear', queue:false});
+};
+
 function active_player(){
-	return (mi==-1 ? game_data[player][gi][0][4]>=1000 : game_data[player][gi][mi][4]<1000) ? "opponent" : "player"
+	return game_data[player][gi][mi][4]>=1000 ? "opponent" : "player"
 }
 
 function start_timers(){
@@ -92,7 +134,17 @@ function start_timers(){
 	}
 	else {	
 		start_timer($('#numTimerOpp'),$('#visTimerOpp'));	
-	}			
+	}
+}
+
+function makemove(move,color){
+	board.add_piece(move,color);
+	board.show_last_move(move, color);
+	board.evaluate_win(color);
+	clearTimeout(timer);
+	clearInterval(auto_refresh);
+	auto_refresh = null;
+	$('#numTimer, #visTimer, #numTimerOpp, #visTimerOpp').stop();
 }
 
 function load_state(){
@@ -102,11 +154,10 @@ function load_state(){
 	draw_time($('#numTimer'),$('#visTimer'),time_limit_condition);
 	start_timers()
 	if(mi>=0){
-		var data = game_data[player][gi][mi]
-		var color = data[0]
-		var bp = data[1]
-		var wp = data[2]
-		var move = data[3]
+		var bp = game_data[player][gi][mi][1]
+		var wp = game_data[player][gi][mi][2]
+		var move = game_data[player][gi][mi][3]
+		var color = game_data[player][gi][mi][0]
 		for(var i=0; i<M*N; i++){
 			if(bp[i]=='1'){
 				board.add_piece(i, 0);
@@ -115,24 +166,32 @@ function load_state(){
 				board.add_piece(i, 1);
 			}
 		}
-		board.add_piece(move,color);
-		board.show_last_move(move, color);
-		board.evaluate_win(color);
+		clearTimeout(timer);
+		timer = setTimeout(function(){
+			makemove(move,color)
+			if(!is_paused){
+				btn_press_forward();
+			}
+		},3456);
 		if(mi>0){
-			data = game_data[player][gi][mi-1]
-			color = data[0]
-			move = data[3]
-			board.show_last_move(move, color);
+			var lastmove = game_data[player][gi][mi-1][3]
+			var lastcolor = game_data[player][gi][mi-1][0]
+			board.show_last_move(lastmove, lastcolor);
 		}
 	}
 	show_game_info()
 }
 
-function btn_press_forward() {
+function btn_press_forward(){
 	if(mi<game_data[player][gi].length-1 || gi<game_data[player].length-1 || player<game_data.length-1){
+		var move = game_data[player][gi][mi][3];
+		var color = game_data[player][gi][mi][0];
+		if((color ? board.white_position[move] :board.black_position[move]) == 0){
+			makemove(move,color);
+		}
 		mi++
 		if(mi==game_data[player][gi].length){
-			mi = -1
+			mi = 0
 			gi++
 			if(gi == game_data[player].length){
 				gi = 0
@@ -141,18 +200,17 @@ function btn_press_forward() {
 			load_state()
 		}
 		else {
-			var data = game_data[player][gi][mi]
-			var color = data[0]
-			var move = data[3]
-			board.add_piece(move,color);
-			start_timers()
-			board.show_last_move(move, color);
-			board.evaluate_win(color);
+			var move = game_data[player][gi][mi][3];
+			var color = game_data[player][gi][mi][0];
+			clearTimeout(timer);
+			timer = setTimeout(function(){
+				makemove(move,color)
+				if(!is_paused){
+					btn_press_forward();
+				}
+			},3456);
 		}
-		clearTimeout(timer);
-		if(!is_paused){
-			timer = setTimeout(btn_press_forward,2000);
-		}
+		start_timers()
 		show_game_info()
 	}
 }
@@ -161,7 +219,7 @@ function btn_press_backward(){
 	$(".blackPiece").stop().css({"backgroundColor": "black"})
 	$(".whitePiece").stop().css({"backgroundColor": "white"})	
 	if(mi>=0 || gi >0 || player >0){
-		if(mi == -1){
+		if(mi == 0){
 			if(gi == 0){
 				if(player > 0){
 					player--				
@@ -176,19 +234,23 @@ function btn_press_backward(){
 		}
 		else {
 			board.remove_piece(game_data[player][gi][mi][3])
-			start_timers()			
 			mi--
-			if(mi > 0){
-				var data = game_data[player][gi][mi-1]
-				var color = data[0]
-				var move = data[3]
-				board.show_last_move(move, color);
-				board.evaluate_win(color);
+			board.remove_piece(game_data[player][gi][mi][3])
+			start_timers()
+			clearTimeout(timer);
+			var move = game_data[player][gi][mi][3]
+			var color = game_data[player][gi][mi][0]
+			timer = setTimeout(function(){
+				makemove(move,color)	
+				if(!is_paused){
+					btn_press_forward();
+				}
+			},3456);
+			if(mi>0){
+				var lastmove = game_data[player][gi][mi-1][3]
+				var lastcolor = game_data[player][gi][mi-1][0]
+				board.show_last_move(lastmove, lastcolor);
 			}
-		}
-		clearTimeout(timer);
-		if(!is_paused){
-			timer = setTimeout(btn_press_forward,2000);
 		}
 		show_game_info()
 	}
@@ -235,50 +297,6 @@ function make_json(){
 	elem.click();
 	document.body.removeChild(elem);
 }
-
-function reset_timer(numTimer, visTimer) {
-	auto_refresh = null;
-	numTimer.text(timerStart/1000);
-	visTimer.stop(true,true).animate({height: timerStartHeight}, {duration: 300});
-	visTimer.css({backgroundColor: timerStartColor});
-	timerCurrent = timerStart;
-}
-
-this.draw_time = function(numTimer, visTimer, timeridx) {
-	timerStart = timelist[timeridx];
-	timerCurrent = timelist[timeridx];
-	timerStartColor = colorlist[timeridx];
-	timerCurrentColor = timerStartColor;
-	timerStartHeight = (timerStart * ((403/20)/1000) + 'px');
-	numTimer.text(timerStart/1000);
-}
-	
-function start_timer(numTimer, visTimer) {
-	if (auto_refresh != null) {
-	     return;
-	}
-    auto_refresh = setInterval(function() {
-        timerCurrent += -1000;
-        numTimer.text(timerCurrent/1000);
-	    if (timerCurrent <= 0) {
-	        Beep(1200, 500);
-	        numTimer.text('0');
-	        clearInterval(auto_refresh);
-	    } else if (timerCurrent/1000 <= 5) {
-			visTimer.animate({backgroundColor: 'red'});
-     	} else if (timerCurrent/1000 <= 10) {
-          	visTimer.animate({backgroundColor: 'blue'});
-      	} else { 
-	      	visTimer.css('background-color', 'green');
-	    };
-	    if (timerCurrent/1000 == 2) {
-			Beep(300, 250);
-	    } else if (timerCurrent/1000 == 1) {
-	      	Beep(600, 250);
-	    }
-   	}, 1000);
-	visTimer.stop(true, true).animate({height: '0px'}, {duration:timerStart-250, easing:'linear', queue:false});
-};
 
 var audioCtx = new AudioContext()
 var hifreq = 2000,
