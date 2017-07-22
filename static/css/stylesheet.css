@@ -365,7 +365,6 @@ input[type=radio] {
     background:#010101;
     text-align:center;
     box-shadow:0 0 50px black;
-    min-width:1400px;
 }
 #nav-wrap A 
 {
