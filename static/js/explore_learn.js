@@ -42,12 +42,12 @@ function process_name(n){
 		return "Computer " + ((n-1000) % 30 +1).toString()
 	}
 	else {
-		return "Participant " + (n+1).toString()
+		return "Participant " + (Math.floor(n/5)+1).toString()
 	}
 }
 
 function get_session(n1,n2){
-	return (Math.floor((Math.max(n1,n2) - 1000)/30 + 1)).toString()
+	return (Math.floor(Math.min(n1,n2)%5 + 1)).toString()
 }
 
 function show_game_info(){
