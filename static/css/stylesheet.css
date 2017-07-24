@@ -31,13 +31,13 @@ img {
   padding: 1vh 1vh;
   font-size: 4vh;
   border-radius: 1vh;
-  width:8%;	  
+  width:8%;
 }
 
 /* ~ PAGE TOP MESSAGE BOX ~ */
 .headertext {
 	display:inline;
-	height: 24vh;
+	height: 16vh;
 	text-align:center;
 }
 
@@ -46,6 +46,19 @@ img {
 	position:relative;
 	text-align:center;
 }
+
+.indicator {
+	display:inline;
+	height: 16vh;
+	text-align:center;
+}
+
+.indicator h1 {
+	top:30%;
+	position:relative;
+	text-align:center;
+}
+
 
 /* ~ GAME BOARD ~ */
 
@@ -322,19 +335,6 @@ img {
 	max-height:75%;
 	margin:auto;
 	overflow: hidden;
-}
-
-/* ~ PAGE TOP MESSAGE BOX ~ */
-.indicator {
-	display:inline;
-	height: 16vh;
-	text-align:center;
-}
-
-.indicator h1 {
-	top:30%;
-	position:relative;
-	text-align:center;
 }
 
 /* ~ RADIO BUTTONS ~ */

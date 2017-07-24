@@ -7,7 +7,7 @@ function Condition_AI() {
 		that.b.game_status = 'playing';
 		$('.tile').off('mouseenter').off('mouseleave').off('click');
 		$('.canvas, .canvas div').css('cursor', 'none');
-		$('.headertext').text('Waiting for opponent').css('color', '#333333');
+		$('.headertext h1').text('Waiting for opponent').css('color', '#333333');
 		var bp=that.b.black_position.join("")
 		var wp=that.b.white_position.join("")
 		setTimeout(function(){
@@ -43,7 +43,7 @@ function Condition_AI() {
     this.init_turn = function(){
         that.p.move_start = Date.now();
         that.b.highlight_tiles();
-        $('.headertext').text('Your turn').css('color', '#000000');
+        $('.headertext h1').text('Your turn').css('color', '#000000');
         $('.canvas, .tile').css('cursor', 'pointer');
         $('.usedTile, .usedTile div').css('cursor', 'default');
         $('.tile').off('click').on('click', function(e) { that.tileClickHandler(e); });

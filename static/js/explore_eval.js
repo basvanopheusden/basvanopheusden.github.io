@@ -45,8 +45,7 @@ function process_name(n){
 
 function show_trial_info(){
 	var color = game_data[player][ti][0]
-	$('.headertext').text(process_name(game_data[player][ti][4]))
-	$('.headertext2').text("Trial " + (ti+1).toString() + ", " + ((color==1)?"White":"Black") + " to move")
+	$('.headertext').text(process_name(game_data[player][ti][4])+ ", trial " + (ti+1).toString() + ", " + ((color==1)?"White":"Black") + " to move")
 }
 
 function btn_press_play() {

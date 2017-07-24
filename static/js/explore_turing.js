@@ -56,8 +56,8 @@ function process_name(n){
 }
 
 function show_trial_info(){
-	var participant = process_name(game_data[player][ti])
-	$('.headertext').text("participant" + participant.toString())
+	var participant = process_name(player)
+	$('.headertext').text(participant.toString() + ", trial " + (ti+1).toString())
 }
 
 function btn_press_play() {

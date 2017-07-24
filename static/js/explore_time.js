@@ -65,6 +65,9 @@ function btn_press_play() {
 	}
 	else {
 	  is_paused = 0;
+	  if(auto_refresh == null){
+		  btn_press_forward();
+	  }
 	  $("#button_play i").attr("class", "fa fa-pause");
 	  $("#button_play").css("background-color", "#ffa500");
 	}
@@ -105,6 +108,7 @@ function start_timer(numTimer, visTimer) {
 	        Beep(1200, 500);
 	        numTimer.text('time out');
 	        clearInterval(auto_refresh);
+			auto_refresh = null;
 	    } else if (timerCurrent/1000 <= 5) {
 			visTimer.animate({backgroundColor: 'red'});
      	} else if (timerCurrent/1000 <= 10) {
@@ -127,6 +131,7 @@ function active_player(){
 
 function start_timers(){
 	clearInterval(auto_refresh);
+	auto_refresh = null
 	reset_timer($('#numTimer'),$('#visTimer'));
 	reset_timer($('#numTimerOpp'),$('#visTimerOpp'));
 	if(active_player() == "player"){

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset = "utf-8">
+	<meta http-equiv = "X-UA-Compatible" content = "IE=edge">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="">
+	<meta name="author" content="Ma Lab">
+	<title>AI</title>
+
+	<script src="../static/js/lib/jquery-2.2.4.min.js"></script>
+	<script src="../static/js/lib/jquery-ui.min.js"></script>
+	<script src="../static/js/lib/bootstrap-12/bootstrap.min.js"></script>
+	<script src="../static/js/lib/underscore-min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<script src="../static/js/util.js"></script>
+	<script src="../static/js/game.js"></script>
+	<script src="../static/js/explore_learn.js"></script>
+
+	<script>
+		var blocks, player;
+		M=9;
+		N=4;
+		K=4;
+		
+		$(document).ready(function() {
+			load_game_data("https://basvanopheusden.github.io/data/games-learn.json");
+		});
+	</script>	
+
+	<link href = "../static/css/lib/bootstrap-12/bootstrap.min.css" rel = "stylesheet">
+	<link href = '../static/css/stylesheet.css' rel='stylesheet'>
+
+
+	</head>
+	<body>
+		<div id="nav-wrap">
+			<a href="../index.html">Read paper</a>
+			<a href="try_experiments.html">Try experiments</a>
+			<a href="explore_data.html">Explore data</a>
+			<a href="about_us.html">About us</a>	
+		</div>
+
+		<div class='container-fluid'>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class='row'>
+				<div class='col-xs-8 col-xs-offset-2 text-center'>
+					<h1 class='headertext'>Loading</h1>
+				</div>
+			</div>
+			<div class='row _blank_'></div>
+			<div class='row _blank_'></div>
+			<div class="row">
+				<div class="container-fluid col-xs-8 col-xs-offset-2 canvas-container">
+					<div class="canvas"></div>
+				</div>
+			</div>
+			<div class='row _blank_'></div>
+			
+			<div class="player text-center">
+				<button type="button" id="button_backward" class="btn-lg" onclick='btn_press_backward()'>
+					<i class="fa fa-chevron-left"></i>
+				</button>
+				<button type="button" id="button_play" class="btn-lg" onclick='btn_press_play()'>
+					<i class="fa fa-play"></i>
+				</button>
+				<button type="button" id="button_forward" class="btn-lg" onclick='btn_press_forward()'>
+					<i class="fa fa-chevron-right"></i>
+				</button>
+			</div>
+			<div class='row _blank_'></div>
+			<div class='row'>
+				<div class='col-xs-8 col-xs-offset-2 text-center'>
+					<h1 class='headertext2'></h1>
+				</div>
+			</div>
+			<audio id='move-sound'>
+				<source id='move-sound-source' src='static/media/audio/stone3.ogg' type='audio/ogg'>
+			</audio>
+		</div>
+		
+	</body>
+</html>
