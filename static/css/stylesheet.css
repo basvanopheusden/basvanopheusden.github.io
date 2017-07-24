@@ -14,6 +14,15 @@ img {
 	overflow: hidden;
 }
 
+.imglink{
+	position:absolute;
+	border: 5px solid black; 
+	border-radius: 5vh;
+	background-size: 100% 100%;
+	cursor: pointer;
+	font-size:4vh;
+}
+
 .btn-lg:active, .btn-lg:focus, .btn-lg.active, .btn-lg:focus:active {
   background-image: none;
   outline: none;
@@ -319,22 +328,6 @@ input[type=radio] {
 	font-size: 60px;
 	width: 88px;
 	position:absolute;
-}
-
-/* ~ GLOBAL ~ */
-
-html {
-	-moz-user-select: none;
-  	-webkit-user-select: none;
-  	-ms-user-select: none;
-}
-
-img {
-	display:block;
-	max-width: 75%;
-	max-height:75%;
-	margin:auto;
-	overflow: hidden;
 }
 
 /* ~ RADIO BUTTONS ~ */
