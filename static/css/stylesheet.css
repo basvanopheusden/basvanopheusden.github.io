@@ -357,21 +357,21 @@ input[type=radio] {
     height:8vh;
     font-size:3vh;
     opacity:1;
-    background:#010101;
+    background:#202020;
     text-align:center;
     box-shadow:0 0 50px black;
 }
 #nav-wrap A 
 {
     display:inline-block;
-    color:#DDFFDD;
+    color:#980af5;
     text-decoration:none;
     font-weight:bolder;
     padding:12px 20px 0 20px;
     height:8vh;
-    background:#010101;
+    background:#202020;
 }
 #nav-wrap A:hover,A:active
 {
-    background:#1F1F1F;
+    background:#303030;
 }
