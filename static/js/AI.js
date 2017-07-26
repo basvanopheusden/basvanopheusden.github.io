@@ -16,12 +16,16 @@ function Condition_AI() {
 			that.b.add_piece(that.b.last_move, that.p.opponent_color);
 			that.b.show_last_move(that.b.last_move, that.p.opponent_color);
 			that.b.evaluate_win(that.p.opponent_color);
-			if (that.b.game_status == 'playing') {
-				that.init_turn();
-			}
 			if (that.b.game_status == 'win') {
 				that.p.opponent_score ++;
 				$('#p1-score h2').text(that.p.opponent_score);
+				$('#feedback-modal').modal('show')
+			}
+			if (that.b.game_status == 'draw') {
+				$('#feedback-modal').modal('show')
+			}
+			else {
+				that.init_turn();			
 			}
 		},500);
     }
@@ -36,8 +40,14 @@ function Condition_AI() {
 		if(that.b.game_status=='win'){ 
 			that.p.score ++; 
 			$('#p0-score h2').text(that.p.score); 
+			$('#feedback-modal').modal('show')
 		}
-        that.opponent_move();
+		else if(that.b.game_status=='draw'){ 
+			$('#feedback-modal').modal('show')
+		}
+        else {
+			that.opponent_move();
+		}
     }
 
     this.init_turn = function(){

@@ -332,26 +332,6 @@ input[type=radio] {
 	position:absolute;
 }
 
-/* ~ RADIO BUTTONS ~ */
-#scale-label {
-	font-size:3vh;
-	text-align: center;
-	cursor:none;
-}
-
-input[type=radio] { 
-	position:relative;
-	background-color: #333333;
-	margin-left: 5%;
-	margin-right:5%;
-	width: 2vw;
-	height: 2vw;
-}
-
-.radio-bar {
-	min-height:5vh;
-}
-
 #nav-wrap 
 {
     height:8vh;
