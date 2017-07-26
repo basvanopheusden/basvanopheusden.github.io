@@ -1,5 +1,4 @@
 var win_color = "#22ddaa",
-	move_sound = document.getElementById('move-sound');
 	square_bkgcolor = "#999999",
 	square_highlight = "#bbbbbb";
 	

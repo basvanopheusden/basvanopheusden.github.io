@@ -1,10 +1,9 @@
 More development:
-Select game
 Select random
 About this experiment
-About this participant
 
 Fixes:
 Add model predictions
-Align tai timers with vh, vw
-Incorporate response times
+Incorporate response times in tai
+
+Make everything screen-size invariant

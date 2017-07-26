@@ -6,13 +6,16 @@ function start(data){
 	game_data = data
 	board = new Board();
 	board.create_tiles();
-	$(document).off().on('keydown', function(e){keypress_handler(e)});
-	select_random_board()
+	$(document).off('keydown').on('keydown', function(e){keypress_handler(e)});
+	player = 1
+	gi = 0
+	mi = -1
+	load_state()
 }
 
 function select_random_board(){
 	if(game_data != null){
-		player = Math.floor((Math.random() * game_data.length));
+		player = Math.floor((Math.random() * (game_data.length -1)) +1 );
 		gi = Math.floor((Math.random() * game_data[player].length));
 		mi = Math.floor((Math.random() * (game_data[player][gi].length+1)))-1;
 		load_state()
@@ -130,7 +133,7 @@ function btn_press_forward() {
 function btn_press_backward(){
 	$(".blackPiece").stop().css({"backgroundColor": "black"})
 	$(".whitePiece").stop().css({"backgroundColor": "white"})	
-	if(mi>=0 || gi >0 || player >0){
+	if(mi>=0 || gi >0 || player >1){
 		if(mi == -1){
 			if(gi == 0){
 				if(player > 0){

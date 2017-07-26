@@ -163,6 +163,20 @@ img {
 
 ._blank_ { min-height:1.6vh;}
 
+#about_modal_btn{
+	position:absolute;
+	top:91vh;
+	left:2vw;
+	font-size:3vh;
+}
+
+#show_random_btn{
+	position:absolute;
+	top:84vh;
+	left:2vw;
+	font-size:3vh;
+}
+
  #scale-label {
 	font-size:3vh;
 	text-align: center;
@@ -272,6 +286,11 @@ input[type=radio] {
 	/*min-height: 75px;*/
 }
 
+#about-modal .modal-dialog .modal-content .modal-body p {
+	font-size:3vh;
+}
+
+
 #visTimerContainerOpp {
 	left: 122px;
 	height: 412px;		    
@@ -344,7 +363,7 @@ input[type=radio] {
 #nav-wrap A 
 {
     display:inline-block;
-    color:#980af5;
+    color:#337ab7;
     text-decoration:none;
     font-weight:bolder;
     padding:12px 20px 0 20px;
