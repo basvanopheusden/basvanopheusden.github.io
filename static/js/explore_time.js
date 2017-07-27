@@ -95,7 +95,7 @@ this.draw_time = function(numTimer, visTimer, timeridx) {
 	timerCurrent = timelist[timeridx];
 	timerStartColor = colorlist[timeridx];
 	timerCurrentColor = timerStartColor;
-	timerStartHeight = (timerStart * ((403/20)/1000) + 'px');
+	timerStartHeight = (timerStart * ((29.78/20)/1000) + 'vw');
 	numTimer.text(timerStart/1000);
 }
 	

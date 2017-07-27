@@ -1,8 +1,2 @@
-More development:
-About this experiment
-
 Fixes:
-Add model predictions
 Incorporate response times in tai
-
-Make everything screen-size invariant

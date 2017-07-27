@@ -53,10 +53,10 @@ img {
 	display:inline;
 	height: 16vh;
 	text-align:center;
+	font-size:5vh;
 }
 
 .headertext h1 {
-	top:30%;
 	position:relative;
 	text-align:center;
 }
@@ -65,18 +65,16 @@ img {
 	display:inline;
 	height: 16vh;
 	text-align:center;
+	font-size:5vh;
 }
 
 .indicator h1 {
-	top:30%;
 	position:relative;
 	text-align:center;
 }
 
 
 /* ~ GAME BOARD ~ */
-
-
 
 /* make all these into multiple selectors? */
 .canvas-container{ padding:0%; }
@@ -295,62 +293,60 @@ input[type=radio] {
 
 
 #visTimerContainerOpp {
-	left: 122px;
-	height: 412px;		    
-	width: 90px;
+	left: 8vw;
+	height: 29.78vw;		    
+	width: 6vw;
 	position:relative;
 }
 
 #visTimerOpp{
-	height: 403px;
-	width: 88px;
+	height: 29.78vw;		    
+	width: 6vw;
 	background-color: white;
 	position: absolute;
-	bottom: 6px;
+	bottom: 0px;
 }
 
 #numTimerContainerOpp {
-  	left: 123px;
-   	top: -27px;
-    width: 88px;
+	left: 8vw;
+	top: -2vh;
+	width: 6vw;
     position:relative;
     text-align: center;
 }
 
 #numTimerOpp {
    	text-align: center;
-   	font-size: 60px;
-  	width: 88px;
+   	font-size: 7vh;
+	width: 6vw;
 	position: absolute;
 }
 
 #visTimerContainer {
-	left: 10px;
-	height: 412px;		    
-	width: 90px;
+	height: 29.78vw;
+	width: 6vw;
 	position:relative;
 }
 		    
 #visTimer{
-	height: 403px;
-	width: 88px;
+	height: 29.78vw;		    
+	width: 6vw;
 	background-color: white;
 	position: absolute;
-	bottom: 6px;
+	bottom: 0px;
 }
 
 #numTimerContainer {
-	left: 10px;
-	top: -27px;
-	width: 88px;
+	top: -2vh;
+	width: 6vw;
 	position:relative;
 	text-align: center;
 }
 
 #numTimer {
 	text-align: center;
-	font-size: 60px;
-	width: 88px;
+	font-size: 7vh;
+	width: 6vw;
 	position:absolute;
 }
 
