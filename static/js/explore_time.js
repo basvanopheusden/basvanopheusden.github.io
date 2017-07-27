@@ -179,7 +179,7 @@ function load_state(){
 			if(!is_paused){
 				btn_press_forward();
 			}
-		},3456);
+		},7456);
 		if(mi>0){
 			var lastmove = game_data[player][gi][mi-1][3]
 			var lastcolor = game_data[player][gi][mi-1][0]
