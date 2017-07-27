@@ -46,16 +46,19 @@
 			<button type="button" class="btn btn-primary" id="show_random_btn" onclick='select_random_board()'>Show random trial</button>
 			<button type="button" class="btn btn-primary" id="about_modal_btn" data-toggle="modal" data-target="#about-modal">About this experiment</button>
 			<div class="modal fade" id="about-modal" data-backdrop="static" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
-						<div class="modal-body">Hello :)</div>
+						<div class="modal-body">
+							<p>Game rules: Two players take turns placing black or white pieces on the board. The first player to get 4 pieces on a row, column or diagonal, wins the game! When the board is full, the game is a draw</p>
+							<img src="https://basvanopheusden.github.io/media/image/board.png"></img>
+							<p>Experimental procedure: We recruited 30 participants to played against AI opponents for 60 minutes, with a time limit of 5, 10 or 20 seconds per move. The time limit was constant within each game, and changed between games. Exceeding the time limit counted as a game loss. After each game, the AI changed its settings. When the participant won, the AI became stronger, when the participant lost, the AI became weaker. We compensated participants $12 but gave no performance bonus. </p>
+						</div>
 						<div class="modal-footer">				
 							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			
 			<div class='row _blank_'></div>
 			<div class='row _blank_'></div>

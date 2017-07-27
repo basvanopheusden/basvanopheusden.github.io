@@ -3,9 +3,11 @@ var game_data;
 timer = null;
 
 function start(){
-	$(document).on('keydown', function(e){keypress_handler(e)});
+	$(document).off('keydown').on('keydown', function(e){keypress_handler(e)});
 	$('input[name="radio"]').off('click').css("cursor","default")
-	select_random_trial()
+	player = 0
+	ti = 0
+	load_state()
 }
 
 function select_random_trial(){

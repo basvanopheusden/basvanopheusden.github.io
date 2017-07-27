@@ -3,8 +3,10 @@ var game_data;
 timer = null;
 
 function start(){
-	$(document).on('keydown', function(e){keypress_handler(e)});
-	select_random_trial()
+	$(document).off('keydown').on('keydown', function(e){keypress_handler(e)});
+	player = 0
+	ti = 0
+	load_state()
 }
 
 function select_random_trial(){

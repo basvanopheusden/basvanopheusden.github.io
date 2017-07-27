@@ -43,12 +43,14 @@
 		</div>
 
 		<div class='container-fluid'>
-			<button type="button" class="btn btn-primary" id="show_random_btn" onclick='select_random_board()'>Show random trial</button>
+			<button type="button" class="btn btn-primary" id="show_random_btn" onclick='select_random_trial()'>Show random trial</button>
 			<button type="button" class="btn btn-primary" id="about_modal_btn" data-toggle="modal" data-target="#about-modal">About this experiment</button>
 			<div class="modal fade" id="about-modal" data-backdrop="static" role="dialog" aria-hidden="true">
-				<div class="modal-dialog modal-sm">
+				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
-						<div class="modal-body">Hello :)</div>
+						<div class="modal-body"> 
+							<p>We recruited 30 participants to play against AI opponents for 60 minutes. On a second session, they watched 180 videos of segments of games either between two human players, or two computers that follow a model with parameters fitted to those human players. After watching the segment, participants guess whether the players were human or computers, and report their subjective confidence in that judgement. We compensated participants $12 per session plus $6 completion bonus. </p>
+						</div>
 						<div class="modal-footer">				
 							<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 						</div>

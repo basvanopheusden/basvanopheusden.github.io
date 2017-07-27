@@ -16,13 +16,15 @@ function getClip(clipno) {
 
 function start(data){
 	game_data = data
-	$(document).off().on('keydown', function(e){keypress_handler(e)});
+	$(document).off('keydown').on('keydown', function(e){keypress_handler(e)});
 	$('#turing-stim').prop('defaultPlaybackRate',2.8)
 	$('#slider').prop('disabled', true).css('cursor','default')
-	select_random_trial()
+	player = 0
+	ti = 0
+	load_state()
 }
 
-function select_random_trial(){
+function select_random_trial(){	
 	player = Math.floor((Math.random() * game_data.length));
 	ti = Math.floor((Math.random() * game_data[player].length));
 	load_state()

@@ -1,5 +1,4 @@
 More development:
-Select random
 About this experiment
 
 Fixes:

@@ -9,9 +9,11 @@ function start(data){
 	game_data = data
 	board = new Board();
 	board.create_tiles();
-	$(document).off().on('keydown', function(e){keypress_handler(e)});
-	select_random_board()
-}
+	$(document).off('keydown').on('keydown', function(e){keypress_handler(e)});
+	player = 0
+	gi = 0
+	mi = 0
+	load_state()}
 
 function select_random_board(){
 	if(game_data != null){
