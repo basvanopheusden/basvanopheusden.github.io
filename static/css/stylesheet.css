@@ -28,6 +28,8 @@ img {
 	background-position: center center;
 }
 
+/* end clearfix*/
+
 .btn-lg:active, .btn-lg:focus, .btn-lg.active, .btn-lg:focus:active {
   background-image: none;
   outline: none;
