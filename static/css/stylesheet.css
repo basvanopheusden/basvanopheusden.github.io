@@ -16,13 +16,16 @@ img {
 
 .imglink{
 	position:absolute;
-	background-repeat:no-repeat;
-	background-size:cover;
-	background-position: center center;
 	border: 5px solid black; 
 	border-radius: 5vh;
 	cursor: pointer;
 	font-size:4vh;
+}
+
+.imglink div{
+	background-repeat:no-repeat;
+	background-size:cover;
+	background-position: center center;
 }
 
 .btn-lg:active, .btn-lg:focus, .btn-lg.active, .btn-lg:focus:active {
