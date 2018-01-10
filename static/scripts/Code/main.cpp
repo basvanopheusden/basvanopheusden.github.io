@@ -10,7 +10,13 @@ struct moveResponse
     int wait_time;
 };
 
-enum gameEndResponse { win, draw, none };
+enum gameEndResponse
+{
+    gameEndResponseBlackWin,
+    gameEndResponseWhiteWin,
+    gameEndResponseDraw,
+    gameEndResponseIncomplete
+};
 
 extern "C" {
     
@@ -31,21 +37,36 @@ extern "C" {
         output.wait_time = (h.iterations == 0 ? 2500 : ((4000 * sqrt(h.iterations * h.gamma ) + 500)));
         b.write(m);
         b.add(m);
-        
-        /*
-         cout<<uint64totile(m.zet_id)<<endl<<uint64tobinstring(b.pieces[BLACK])<<endl<<uint64tobinstring(b.pieces[WHITE])<<endl;
-         if(is_win(b.pieces[player]))
-         cout<<"win"<<endl;
-         else if(b.is_full())
-         cout<<"draw"<<endl;
-         else cout<<"playing"<<endl;
-         */
-        
+
         output.index = uint64totile(m.zet_id);
         return output;
     }
     
-    int makemove (int seed, char* bp, char* wp, bool player) {
+    gameEndResponse evaluateGameEnd(char* bp, char* wp)
+    {
+        board b (binstringtouint64(bp), binstringtouint64(wp));
+        cout<<uint64tobinstring(b.pieces[BLACK])<<endl<<uint64tobinstring(b.pieces[WHITE])<<endl;
+        
+        if (is_win(b.pieces[BLACK]))
+        {
+            cout<<"win"<<endl;
+            return gameEndResponseBlackWin;
+        }
+        else if (is_win(b.pieces[WHITE]))
+        {
+            cout<<"win"<<endl;
+            return gameEndResponseWhiteWin;
+        }
+        else if(b.is_full())
+        {
+            cout<<"draw"<<endl;
+            return gameEndResponseDraw;
+        }
+        
+        return gameEndResponseIncomplete;
+    }
+    
+    int makemove(int seed, char* bp, char* wp, bool player) {
         return makemoveresponse(seed, bp, wp, player).index;
     }
 }
