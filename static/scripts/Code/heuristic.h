@@ -53,6 +53,7 @@ class heuristic{
     void get_params_from_file(char*,int);
     void get_params_from_file(char*,int,int);
     void get_params_from_matlab(double*);
+    void get_params(int*);
     void get_features_from_file(char*);
     void addfeature(uint64, int );
     void addfeature(uint64, uint64, int , int );

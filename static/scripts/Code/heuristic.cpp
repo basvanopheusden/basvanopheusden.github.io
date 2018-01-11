@@ -54,6 +54,25 @@ void heuristic::get_params_from_file(char* filename,int subject=0){
   get_params_from_file(filename,subject,0);
 }
 
+void heuristic::get_params(int* params){
+  stopping_thresh=10000.0;
+  pruning_thresh=params[0];
+  gamma=params[1];
+  opp_scale=1.0;
+  exploration_constant=1.0;
+  for(unsigned int i=0;i<Nweights;i++)
+    delta[i]=params[2];
+  lapse_rate=params[3];
+  center_weight=params[5];
+  for(unsigned int i=0;i<Nweights-1;i++){
+    w_act[i]=params[i%4+6];
+    w_pass[i]=params[i%4+6]*params[4];
+  }
+  w_act[Nweights-1]=0.0;
+  w_pass[Nweights-1]=0.0;
+  update();
+}
+
 void heuristic::get_params_from_file(char* filename,int subject=0,int group=0){
   ifstream input(filename,ios::in);
   string s;
