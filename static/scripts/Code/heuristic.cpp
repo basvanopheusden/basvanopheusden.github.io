@@ -54,7 +54,7 @@ void heuristic::get_params_from_file(char* filename,int subject=0){
   get_params_from_file(filename,subject,0);
 }
 
-void heuristic::get_params(int* params){
+void heuristic::get_params(const double* params){
   stopping_thresh=10000.0;
   pruning_thresh=params[0];
   gamma=params[1];

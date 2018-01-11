@@ -35,7 +35,7 @@ extern "C" {
 
         generator.seed(seed);
         h.seed_generator(generator);
-        h.get_params(opp_num);
+        h.get_params(params[opp_num]);
         m = h.makemove_bfs(b,player);
 
         cout<<bp<<"\t"<<wp<<endl;
@@ -72,8 +72,8 @@ extern "C" {
         return gameEndResponseIncomplete;
     }
 
-    int makemove(int seed, char* bp, char* wp, bool player) {
-        return makemoveresponse(seed, bp, wp, player).index;
+    int makemove(int seed, char* bp, char* wp, bool player, int level, int opp_num_in_level) {
+        return makemoveresponse(seed, bp, wp, player, level, opp_num_in_level).index;
     }
 }
 
