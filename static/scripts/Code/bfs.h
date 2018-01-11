@@ -47,7 +47,8 @@ class node{
       m=0;
       if(b.black_has_won())
         pess=opt=BLACK_WINS-depth,val=10000.0;
-      else if(b.white_has_won())
+      else
+      if(b.white_has_won())
         pess=opt=WHITE_WINS+depth,val=-10000.0;
       else if(b.is_full())
         pess=opt=0,val=0.0;

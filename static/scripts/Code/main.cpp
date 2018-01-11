@@ -2,6 +2,8 @@
 #include "heuristic.h"
 #include "bfs.h"
 #include <ctime>
+#include <stdio.h>
+#include <string.h>
 using namespace std;
 
 struct moveResponse
@@ -71,4 +73,3 @@ extern "C" {
     }
 }
 
-}
