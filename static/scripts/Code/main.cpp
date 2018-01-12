@@ -38,7 +38,6 @@ extern "C" {
         h.seed_generator(generator);
         if(opp_num>=0 && opp_num<42)
             h.get_params(params[opp_num]);
-        cout<<opp_num<<endl;
         m = h.makemove_bfs(b,player);
 
         cout<<bp<<"\t"<<wp<<endl;
