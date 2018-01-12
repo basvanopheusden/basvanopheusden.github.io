@@ -4,6 +4,7 @@
 #include <ctime>
 #include <stdio.h>
 #include <string.h>
+#include <fstream>
 using namespace std;
 
 const int N_opps_per_level = 6;
@@ -24,7 +25,7 @@ enum gameEndResponse
 
 extern "C" {
 
-    moveResponse makemoveresponse(int seed, char* bp, char* wp, bool player, int level, int opp_num_in_level) {
+    moveResponse makemoveresponse(int seed, string bp, string wp, bool player, int level, int opp_num_in_level) {
 
         moveResponse output;
         heuristic h;
@@ -35,7 +36,9 @@ extern "C" {
 
         generator.seed(seed);
         h.seed_generator(generator);
-        h.get_params(params[opp_num]);
+        if(opp_num>=0 && opp_num<42)
+            h.get_params(params[opp_num]);
+        cout<<opp_num<<endl;
         m = h.makemove_bfs(b,player);
 
         cout<<bp<<"\t"<<wp<<endl;
@@ -48,7 +51,7 @@ extern "C" {
         return output;
     }
 
-    gameEndResponse evaluateGameEnd(char* bp, char* wp)
+    gameEndResponse evaluateGameEnd(string bp, string wp)
     {
         board b (binstringtouint64(bp), binstringtouint64(wp));
         cout<<uint64tobinstring(b.pieces[BLACK])<<endl<<uint64tobinstring(b.pieces[WHITE])<<endl;
@@ -72,7 +75,7 @@ extern "C" {
         return gameEndResponseIncomplete;
     }
 
-    int makemove(int seed, char* bp, char* wp, bool player, int level, int opp_num_in_level) {
+    int makemove(int seed, string bp, string wp, bool player, int level, int opp_num_in_level) {
         return makemoveresponse(seed, bp, wp, player, level, opp_num_in_level).index;
     }
 }
