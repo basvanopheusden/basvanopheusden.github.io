@@ -36,7 +36,7 @@ extern "C" {
 
         generator.seed(seed);
         h.seed_generator(generator);
-        if(opp_num>=0 && opp_num<42)
+        if(opp_num>=0 && opp_num<200)
             h.get_params(params[opp_num]);
         m = h.makemove_bfs(b,player);
 
