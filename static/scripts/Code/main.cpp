@@ -7,7 +7,7 @@
 #include <fstream>
 using namespace std;
 
-const int N_opps_per_level = 6;
+const int N_opps_per_level = 200;
 
 struct moveResponse
 {
