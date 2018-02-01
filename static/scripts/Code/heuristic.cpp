@@ -124,10 +124,14 @@ void heuristic::get_features_from_file(char* filename){
 void heuristic::addfeature(uint64 config, int i){
   int shiftc=colmax(config);
   int shiftr=rowmax(config);
-  for(int col=0;col<shiftc;col++)
-    for(int row=0;row<shiftr;row++)
-      feature.push_back(pattern(shift(config,row,col),0,0,w_act,w_pass,delta,i));
-  Nfeatures=feature.size();
+  for (int col=0; col<shiftc; col++)
+  {
+      for(int row=0;row<shiftr;row++)
+      {
+          feature.push_back(pattern(shift(config,row,col),0,0,w_act,w_pass,delta,i));
+      }
+  }
+  Nfeatures = (unsigned int)feature.size();
 }
 
 void heuristic::addfeature(uint64 config, uint64 confempty, int i, int n){
@@ -136,11 +140,17 @@ void heuristic::addfeature(uint64 config, uint64 confempty, int i, int n){
   int rmin=rowmin(config,confempty,n);
   int rmax=rowmax(config,confempty,n);
   board b;
-  for(int col=cmin;col<cmax;col++)
-    for(int row=rmin;row<rmax;row++)
-      if(num_bits(shift(confempty,row,col))>=n)
-        feature.push_back(pattern(shift(config,row,col),shift(confempty,row,col),n,w_act,w_pass,delta,i));
-  Nfeatures=feature.size();
+  for (int col=cmin;col<cmax;col++)
+  {
+      for (int row=rmin; row<rmax; row++)
+      {
+          if(num_bits(shift(confempty,row,col))>=n)
+          {
+              feature.push_back(pattern(shift(config,row,col),shift(confempty,row,col),n,w_act,w_pass,delta,i));
+          }
+      }
+  }
+  Nfeatures = (unsigned int)feature.size();
 }
 
 void heuristic::update(){
@@ -269,12 +279,19 @@ vector<zet> heuristic::get_pruned_moves(board& b, bool player){
 
 zet heuristic::makerandommove(board bstart, bool player){
   vector<uint64> options;
-  int Noptions;
-  for(uint64 m=1;m!=boardend;m<<=1)
-    if(bstart.isempty(m))
-      options.push_back(m);
-  Noptions=options.size();
-  if(Noptions>0)
+  for(uint64 m=1; m!=boardend; m<<=1)
+  {
+      if(bstart.isempty(m))
+      {
+          options.push_back(m);
+      }
+  }
+    
+  int Noptions = (int)options.size();
+    
+  if(Noptions > 0)
+  {
     return zet(options[uniform_int_distribution<int>{0,Noptions-1}(engine)],0.0,player);
+  }
   return zet(0,0.0,player);
 }

@@ -56,7 +56,7 @@ inline int num_bits(uint64 x){
     x = (x & m8 ) + ((x >>  8) & m8 ); //put count of each 16 bits into those 16 bits
     x = (x & m16) + ((x >> 16) & m16); //put count of each 32 bits into those 32 bits
     x = (x & m32) + ((x >> 32) & m32); //put count of each 64 bits into those 64 bits
-    return x;
+    return (int)x;
 }
 
 inline bool has_one_bit(uint64 x){
