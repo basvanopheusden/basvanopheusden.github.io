@@ -46,13 +46,29 @@ class node{
       Nchildren=0;
       m=0;
       if(b.black_has_won())
-        pess=opt=BLACK_WINS-depth,val=10000.0;
+      {
+          pess=opt=BLACK_WINS-depth;
+          val=10000.0;
+      }
       else
-      if(b.white_has_won())
-        pess=opt=WHITE_WINS+depth,val=-10000.0;
-      else if(b.is_full())
-        pess=opt=0,val=0.0;
-      else val=v,pess=WHITE_WINS+depth+1,opt=BLACK_WINS-depth-1;
+      {
+          if(b.white_has_won())
+          {
+              pess=opt=WHITE_WINS+depth;
+              val=-10000.0;
+          }
+          else if(b.is_full())
+          {
+              pess=opt=0;
+              val=0.0;
+          }
+          else
+          {
+              val=v;
+              pess=WHITE_WINS+depth+1;
+              opt=BLACK_WINS-depth-1;
+          }
+      }
     }
     ~node(){
       if(child){
@@ -64,7 +80,7 @@ class node{
       best=NULL;
     }
     void expand(vector<zet> candidate){
-      Nchildren=candidate.size();
+      Nchildren=(unsigned int)candidate.size();
       if(Nchildren>0){
         child=new node*[Nchildren];
         for(unsigned int i=0;i<Nchildren;i++){
@@ -156,7 +172,7 @@ class node{
     }
     zet bestmove(){
       double v;
-      uint64 m_best;
+      uint64 m_best=999;
       if(!best)
         return zet(0,val,player);
       if(determined()){
@@ -165,8 +181,13 @@ class node{
       }
       v=(player==BLACK?-20000.0:20000.0);
       for(unsigned int i=0;i<Nchildren;i++)
-        if((player==BLACK && child[i]->val>v)||(player==WHITE && child[i]->val<v))
-          v=child[i]->val,m_best=child[i]->m;
+      {
+          if((player==BLACK && child[i]->val>v)||(player==WHITE && child[i]->val<v))
+          {
+              v=child[i]->val;
+              m_best=child[i]->m;
+          }
+      }
       return zet(m_best,v,player);
     }
     bool stop(double thresh,bool talk=false){
