@@ -7,7 +7,7 @@
 #include <fstream>
 using namespace std;
 
-const int N_opps_per_level = 200;
+const int N_opps = 200;
 
 struct moveResponse
 {
@@ -25,18 +25,17 @@ enum gameEndResponse
 
 extern "C" {
 
-    moveResponse makemoveresponse(int seed, string bp, string wp, bool player, int level, int opp_num_in_level) {
+    moveResponse makemoveresponse(int seed, string bp, string wp, bool player, int opp_num) {
 
         moveResponse output;
         heuristic h;
         zet m;
-        int opp_num = level*N_opps_per_level + opp_num_in_level;
         mt19937_64 generator;
         board b(binstringtouint64(bp),binstringtouint64(wp));
 
         generator.seed(seed);
         h.seed_generator(generator);
-        if(opp_num>=0 && opp_num<200)
+        if(opp_num>=0 && opp_num<N_opps)
             h.get_params(params[opp_num]);
         m = h.makemove_bfs(b,player);
 
@@ -74,8 +73,8 @@ extern "C" {
         return gameEndResponseIncomplete;
     }
 
-    int makemove(int seed, string bp, string wp, bool player, int level, int opp_num_in_level) {
-        return makemoveresponse(seed, bp, wp, player, level, opp_num_in_level).index;
+    int makemove(int seed, string bp, string wp, bool player, int opp_num) {
+        return makemoveresponse(seed, bp, wp, player, opp_num).index;
     }
 }
 
