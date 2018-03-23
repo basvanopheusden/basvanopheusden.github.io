@@ -32,6 +32,7 @@ extern "C" {
         zet m;
         mt19937_64 generator;
         board b(binstringtouint64(bp),binstringtouint64(wp));
+        double base_time;
 
         generator.seed(seed);
         h.seed_generator(generator);
@@ -40,8 +41,11 @@ extern "C" {
         m = h.makemove_bfs(b,player);
 
         cout<<bp<<"\t"<<wp<<endl;
+        
+        base_time = 3000.0 * sqrt(h.iterations * h.gamma ) + 500.0;
 
-        output.wait_time = (h.iterations == 0 ? 2500 : ((4000 * sqrt(h.iterations * h.gamma ) + 500)));
+        output.wait_time = (h.iterations==0) ? 2000.0 : (8000.0-log(1.0+exp((8000.0-1.2*base_time)/2000.0))*2000.0);
+        
         b.write(m);
         b.add(m);
 
